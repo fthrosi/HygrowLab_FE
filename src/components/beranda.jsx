@@ -80,7 +80,7 @@ export default function Beranda() {
             untuk memantau perkembangan tanaman.
           </p>
           <div className="mt-3">
-            <Link className="bg-primary text-white px-[1.875rem] py-5 rounded-full text-lg font-medium">
+            <Link to="tentangkami" className="bg-primary text-white px-[1.875rem] py-5 rounded-full text-lg font-medium">
               Tentang Kami
             </Link>
           </div>

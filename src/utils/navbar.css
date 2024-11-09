@@ -1,0 +1,11 @@
+.navlink a::after{
+    content: '';
+    display: block;
+    padding-bottom: 0.5rem;
+    border-bottom: 0.1rem solid var(--primary);
+    transition: 0.3s linear;
+    transform: scaleX(0);
+}
+.navlink a:hover::after{
+    transform: scaleX(0.5);
+}
