@@ -12,6 +12,9 @@ export default {
         'darkblue': 'var(--darkblue)',
         'white': 'var(--white)',
       },
+      fontFamily: {
+        nunito: ['Nunito', 'sans-serif'],
+      },
     },
   },
   plugins: [],
