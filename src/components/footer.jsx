@@ -7,22 +7,22 @@ export default function Footer() {
         <img
           src="/assets/icons/kiri.png"
           alt=""
-          className="h-full w-[37.063rem]"
+          className="h-full"
         />
       </div>
-      <div className="flex flex-col gap-10 py-[2.938rem]">
+      <div className="flex flex-col lg:gap-10 md:gap-5 gap-5 lg:py-[2.938rem] md:py-[2rem] py-[1rem]">
         <div className="flex items-center justify-center gap-4">
           <img
             src="/assets/images/logo-white.png"
             alt="logo"
-            style={{ width: 64, height: 65 }}
+            className="lg:size-[4rem] md:size-[6.25vw] size-[12.5vw]"
           />
-          <h1 className="font-nunito font-bold text-[1.563rem] text-white">
+          <h1 className="font-nunito font-bold md:text-[1.563rem] text-[6vw] text-white">
             HygrowLab
           </h1>
         </div>
         <div className="flex items-center justify-center">
-          <ul className="flex gap-7 text-lg font-nunito text-white">
+          <ul className="flex lg:gap-7 md:gap-5 gap-3 md:text-lg text-[3.5vw] md:text-[1rem] font-nunito text-white">
             <li>
               <Link>Beranda</Link>
             </li>
@@ -32,22 +32,22 @@ export default function Footer() {
           </ul>
         </div>
         <div className="flex items-center justify-center gap-4">
-          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+          <div className="md:w-10 md:h-10 size-[10vw] bg-white rounded-full flex items-center justify-center">
             <img
               src="/assets/icons/instagram-brands-solid 1.png"
               alt="facebook"
             />
           </div>
-          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+          <div className="md:w-10 md:h-10 size-[10vw] bg-white rounded-full flex items-center justify-center">
             <img src="/assets/icons/fb.png" alt="facebook" />
           </div>
-          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+          <div className="md:w-10 md:h-10 size-[10vw] bg-white rounded-full flex items-center justify-center">
             <img src="/assets/icons/x.png" alt="facebook" />
           </div>
         </div>
         <hr />
         <div>
-          <p className="text-white text-center font-nunito text-[0.875rem]">
+          <p className="text-white text-center font-nunito md:text-[0.875rem] text-[2.5vw]">
             © 2024 HygrowLab. All rights reserved.
           </p>
         </div>
@@ -56,7 +56,7 @@ export default function Footer() {
         <img
           src="/assets/icons/kanan.png"
           alt=""
-          className="h-full w-[37.063rem]"
+          className="h-full"
         />
       </div>
     </div>
