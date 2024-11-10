@@ -4,6 +4,9 @@ export default function Tanaman() {
   const muncul = () => {
     setShow(true);
   };
+  const tutup = () => {
+    setShow(false);
+  };
   const Open = () => {
     return (
       <>
@@ -37,6 +40,11 @@ export default function Tanaman() {
                 </div>
                 <div className="w-full flex justify-end">
                   <button
+                    onClick={tutup}
+                    className=" bg-red-500 py-3 px-14 rounded-xl mt-5 nunito text-white  ">
+                    Cancel
+                  </button>
+                  <button
                     className="bg-[rgb(16,185,129)] py-3 px-14 rounded-xl mt-5 nunito text-white  "
                     type="submit">
                     Simpan
@@ -65,8 +73,11 @@ export default function Tanaman() {
         <div className="w-[95%] mx-auto ">
           <div className="w-[240px] h-[260px] shadow-2xl">
             <div className="w-full h-[60%] flex ">
-              <img className="w-[95%] h-full" src="image/image 5.png" alt="" />
-              <img className="w-[5%] h-[20px]" src="image/Group.png" alt="" />
+              <img
+                className="w-[95%] h-full"
+                src="assets/images/image 5.png"
+                alt=""
+              />
             </div>
           </div>
         </div>
