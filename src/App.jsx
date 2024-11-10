@@ -1,9 +1,12 @@
-import { BrowserRouter,Route,Routes,Navigate } from 'react-router-dom';
-import { AuthProvider,useAuth } from './context/AuthContext';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import Beranda from './components/beranda';
 import LandingLayout from './layouts/Landing';
 import TentangKami from './components/tentangKami';
 import Faqs from './components/faqs';
+import Login from './layouts/Login';
+import Register from './layouts/Register';
+import './App.css';
 
 function App() {
   return (
@@ -11,11 +14,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPageOrDashboard />} />
-          {/* <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} /> */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route element={<LandingLayout />}>
-            <Route path="/beranda" element={<Beranda />}/>
-            <Route path="/tentangkami" element={<TentangKami />}  />
+            <Route path="/beranda" element={<Beranda />} />
+            <Route path="/tentangkami" element={<TentangKami />} />
             <Route path="/faqs" element={<Faqs />} />
           </Route>
           {/* <Route path="/dashboard" element={<PrivateRoute />}>
@@ -34,7 +37,11 @@ function App() {
 
 const LandingPageOrDashboard = () => {
   const { isLoggedIn } = useAuth();
-  return isLoggedIn ? <Navigate to="/dashboard/home" /> : <Navigate to="/beranda" />;
+  return isLoggedIn ? (
+    <Navigate to="/dashboard/home" />
+  ) : (
+    <Navigate to="/beranda" />
+  );
 };
 
 const PrivateRoute = ({ children }) => {
