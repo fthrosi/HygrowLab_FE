@@ -8,16 +8,16 @@ export default function Tanaman() {
       </div>
       <div className="mt-5 w-full bg-white rounded-md px-10 py-5">
         <div className="flex justify-between">
-          <div className="flex  justify-center bg-red-600">
+          <div className="flex  justify-center ">
             <h1 className="text-xl">Minggu Ke-1</h1>
           </div>
-          <div className="flex  justify-center bg-red-600">
+          <div className="flex  justify-center ">
             <h1>Minggu Ke-2</h1>
           </div>
-          <div className="flex  justify-center bg-red-600">
+          <div className="flex  justify-center ">
             <h1>Minggu Ke-3</h1>
           </div>
-          <div className="flex  justify-center bg-red-600">
+          <div className="flex  justify-center ">
             <h1>Minggu Ke-4</h1>
           </div>
         </div>
@@ -115,7 +115,7 @@ export default function Tanaman() {
           </div>
         </div>
         <div className=" flex justify-end">
-          <button className="bg-primary rounded-md py-2 font-bold text-white mt-8 px-3">
+          <button className="bg-primary rounded-md py-2 font-semibold text-white mt-8 px-3">
             Edit Pencatatan
           </button>
         </div>

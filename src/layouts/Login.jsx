@@ -87,7 +87,7 @@ export default function Login() {
                 </form>
                 <p className="nunito text-[rgb(176,176,176)] mt-2">
                   Belum punya akun? &nbsp;
-                  <a className="font-bold" href="">
+                  <a className="font-bold" href="/register">
                     Daftar
                   </a>
                 </p>

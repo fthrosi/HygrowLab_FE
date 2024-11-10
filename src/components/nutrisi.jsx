@@ -52,7 +52,7 @@ export default function Nutrisi() {
             </div>
             <div className="w-full flex justify-end mt-5">
               <input
-                className="w-1/3 bg-[rgb(16,185,129)] text-white py-2.5 mt-3 rounded-lg hover:cursor-pointer flex "
+                className="w-1/3 bg-[rgb(16,185,129)] text-white py-2.5 mt-3 rounded-lg hover:cursor-pointer flex font-semibold "
                 type="submit"
                 value="Hitung Nutrisi"
               />
@@ -72,7 +72,7 @@ export default function Nutrisi() {
             <h1 className="mt-10 font-semibold">Nutrisi A : 0 ML</h1>
             <h1 className="mt-2 font-semibold">Nutrisi B : 0 ML</h1>
             <div>
-              <button className="bg-primary rounded-md py-2 font-bold text-white mt-8 px-3">
+              <button className="bg-primary rounded-md py-2 font-semibold text-white mt-8 px-3">
                 Simpan
               </button>
             </div>

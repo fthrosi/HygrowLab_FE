@@ -97,7 +97,7 @@ export default function Navbar() {
           </ul>
         </div>
         <div className="button px-[2rem] py-[0.5rem] bg-primary text-white rounded-[0.438rem] hidden lg:block">
-          <a href="/tentangkami" className="font-bold">
+          <a href="/login" className="font-bold">
             Masuk
           </a>
         </div>

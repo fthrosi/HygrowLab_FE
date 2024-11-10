@@ -82,10 +82,10 @@ export default function Beranda() {
           className="lg:w-[38.563rem] lg:h-[28.188rem] md:size-[41.67vw]"
         />
         <div className="flex flex-col justify-center md:gap-[1.813rem] gap-[1rem]">
-          <h1 className="font-nunito md:font-extrabold font-bold lg:text-4xl text-[7.5vw] text-center md:text-[3.125vw]">
+          <h1 className="font-nunito md:font-extrabold font-bold lg:text-4xl text-[7.5vw] text-center xl:text-start md:text-[3.125vw]">
             Kenali <span className="text-primary">HygrowLab</span>
           </h1>
-          <p className="font-nunito font-medium lg:text-lg md:text-[2.08vw] text-center text-[5vw]">
+          <p className="font-nunito font-medium lg:text-lg md:text-[2.08vw] text-center xl:text-start text-[5vw]">
             <span className="font-bold">HygrowLab</span> adalah platform
             inovatif yang dirancang untuk mempermudah pengelolaan pertanian
             hidroponik. Berlokasi di Batam, kami menyediakan fitur kalkulator
@@ -93,7 +93,7 @@ export default function Beranda() {
             fitur pencatatan histori nutrisi untuk memantau perkembangan
             tanaman.
           </p>
-          <div className="lg:mt-3 flex justify-center">
+          <div className="lg:mt-3 flex justify-center xl:justify-start">
             <Link
               to="tentangkami"
               className="bg-primary text-white lg:px-[1.875rem] lg:py-5 md:px-[1rem] md:py-[0.8rem] px-[0.5rem] py-[0.5rem] rounded-full md:text-lg font-medium text-[4.375vw]"
