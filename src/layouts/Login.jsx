@@ -1,5 +1,14 @@
 import React from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 export default function Login() {
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    setIsLoggedIn(true); 
+    navigate('/dashboard/home');
+  };
   return (
     <>
       <div className=" flex w-full h-[100vh]  items-center justify-center ">
@@ -73,6 +82,7 @@ export default function Login() {
                     className="w-full bg-[rgb(16,185,129)] text-white py-2.5 mt-3 rounded-lg hover:cursor-pointer"
                     type="submit"
                     value="Masuk"
+                    onClick={handleLogin}
                   />
                 </form>
                 <p className="nunito text-[rgb(176,176,176)] mt-2">

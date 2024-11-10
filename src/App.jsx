@@ -6,6 +6,10 @@ import TentangKami from './components/tentangKami';
 import Faqs from './components/faqs';
 import Login from './layouts/Login';
 import Register from './layouts/Register';
+import DashboardLayout from './layouts/Dashboard';
+import DashboardHome from './components/dashboard';
+import Tanaman from './components/tanaman';
+import Nutrisi from './components/nutrisi';
 import './App.css';
 
 function App() {
@@ -13,7 +17,7 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LandingPageOrDashboard />} />
+          {/* <Route path="/" element={<LandingPageOrDashboard />} /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route element={<LandingLayout />}>
@@ -21,14 +25,14 @@ function App() {
             <Route path="/tentangkami" element={<TentangKami />} />
             <Route path="/faqs" element={<Faqs />} />
           </Route>
-          {/* <Route path="/dashboard" element={<PrivateRoute />}>
+          {/* <Route path="/dashboard" element={<PrivateRoute />}> */}
             <Route element={<DashboardLayout />}>
               <Route path="home" element={<DashboardHome />} />
-              <Route path="profile" element={<DashboardProfile />} />
+              {/* <Route path="profile" element={<DashboardProfile />} /> */}
               <Route path="tanaman" element={<Tanaman />} />
               <Route path="nutrisi" element={<Nutrisi />} />
             </Route>
-          </Route> */}
+          {/* </Route> */}
         </Routes>
       </BrowserRouter>
     </AuthProvider>
