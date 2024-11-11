@@ -5,6 +5,9 @@ export default function Tanaman() {
   const muncul = () => {
     setShow(true);
   };
+  const tutup = () => {
+    setShow(false);
+  };
   const Open = () => {
     return (
       <>
@@ -37,6 +40,11 @@ export default function Tanaman() {
                   />
                 </div>
                 <div className="w-full flex justify-end">
+                  <button
+                    onClick={tutup}
+                    className=" bg-red-500 py-3 px-14 rounded-xl mt-5 nunito text-white  ">
+                    Cancel
+                  </button>
                   <button
                     className="bg-[rgb(16,185,129)] py-3 px-14 rounded-xl mt-5 nunito text-white  "
                     type="submit">
