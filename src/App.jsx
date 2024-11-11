@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate,Outlet } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Beranda from './components/beranda';
 import LandingLayout from './layouts/Landing';
@@ -6,6 +6,11 @@ import TentangKami from './components/tentangKami';
 import Faqs from './components/faqs';
 import Login from './layouts/Login';
 import Register from './layouts/Register';
+import DashboardLayout from './layouts/Dashboard';
+import DashboardHome from './components/Dasboard';
+import Tanaman from './components/tanaman';
+import Nutrisi from './components/nutrisi';
+import DetailTanaman from './components/detailTanaman';
 import './App.css';
 
 function App() {
@@ -21,14 +26,15 @@ function App() {
             <Route path="/tentangkami" element={<TentangKami />} />
             <Route path="/faqs" element={<Faqs />} />
           </Route>
-          {/* <Route path="/dashboard" element={<PrivateRoute />}>
+          <Route element={<PrivateRoute />}>
             <Route element={<DashboardLayout />}>
-              <Route path="home" element={<DashboardHome />} />
-              <Route path="profile" element={<DashboardProfile />} />
-              <Route path="tanaman" element={<Tanaman />} />
-              <Route path="nutrisi" element={<Nutrisi />} />
+              <Route path="/home" element={<DashboardHome />} />
+              {/* <Route path="profile" element={<DashboardProfile />} /> */}
+              <Route path="/tanaman" element={<Tanaman />} />
+              <Route path="/nutrisi" element={<Nutrisi />} />
+              <Route path="/detailtanaman" element={<DetailTanaman />} />
             </Route>
-          </Route> */}
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>
@@ -44,9 +50,10 @@ const LandingPageOrDashboard = () => {
   );
 };
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = () => {
   const { isLoggedIn } = useAuth();
-  return isLoggedIn ? children : <Navigate to="/login" />;
+  console.log(isLoggedIn);
+  return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default App;

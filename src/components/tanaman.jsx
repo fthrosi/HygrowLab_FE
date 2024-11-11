@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 export default function Tanaman() {
   const [show, setShow] = useState(false);
   const muncul = () => {
@@ -49,6 +50,10 @@ export default function Tanaman() {
       </>
     );
   };
+  const navigate = useNavigate();
+   const hanleClick = () => {
+     navigate("/detailtanaman");
+   };
   return (
     <>
       {show && <Open />}
@@ -63,10 +68,26 @@ export default function Tanaman() {
           </div>
         </div>
         <div className="w-[95%] mx-auto ">
-          <div className="w-[240px] h-[260px] shadow-2xl">
-            <div className="w-full h-[60%] flex ">
-              <img className="w-[95%] h-full" src="image/image 5.png" alt="" />
-              <img className="w-[5%] h-[20px]" src="image/Group.png" alt="" />
+          <div className="w-[240px] h-[260px] shadow-2xl rounded-md">
+            <div className="w-full h-[60%]" onClick={hanleClick}>
+              <div className='w-full h-full bg-cover p-1' style={{ backgroundImage: `url("/assets/images/foto.png")` }}>
+                  <div className='flex justify-end'>
+                      <div className='w-[26px] h-[26px] rounded-full bg-off-white flex justify-center items-center'>
+                          <img src="assets/icons/Group.png" alt="icon" />
+                      </div>
+                  </div>
+              </div>
+              <div className='px-3 mt-6'>
+                <h1 className='text-primary text-[18px]'>
+                  Pakcoy
+                </h1>
+              </div>
+              <div className='flex justify-between px-3 mt-1'>
+                  <h1 className='font-bold text-[18px]'>
+                    Pakcoy Kolam 4
+                  </h1>
+                  <img src="/assets/icons/share.png" alt="icon" />
+              </div>
             </div>
           </div>
         </div>

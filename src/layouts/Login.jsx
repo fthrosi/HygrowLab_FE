@@ -1,5 +1,15 @@
 import React from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 export default function Login() {
+  const { setIsLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setIsLoggedIn(true); 
+    navigate('/home');
+  };
   return (
     <>
       <div className=" flex w-full h-[100vh]  items-center justify-center ">
@@ -73,11 +83,12 @@ export default function Login() {
                     className="w-full bg-[rgb(16,185,129)] text-white py-2.5 mt-3 rounded-lg hover:cursor-pointer"
                     type="submit"
                     value="Masuk"
+                    onClick={handleLogin}
                   />
                 </form>
                 <p className="nunito text-[rgb(176,176,176)] mt-2">
                   Belum punya akun? &nbsp;
-                  <a className="font-bold" href="">
+                  <a className="font-bold" href="/register">
                     Daftar
                   </a>
                 </p>
