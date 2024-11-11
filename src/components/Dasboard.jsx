@@ -1,4 +1,5 @@
 export default function Dasboard() {
+  console.log('Dasboard');
   return (
     <div className="w-full">
       <p className="nunito font-bold text-[22px] ml-9 mt-9">Dasboard</p>
@@ -12,7 +13,7 @@ export default function Dasboard() {
           </div>
         </div>
         <div className="w-[30%] h-full flex items-center p-3">
-          <img className="w-full h-[90px]" src="image/icon.png" alt="" />
+          <img className="w-full h-[90px]" src="/assets/icons/Icon.png" alt="" />
         </div>
       </div>
       <div className="w-full mt-9 ml-9 flex gap-5">

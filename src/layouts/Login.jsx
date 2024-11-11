@@ -2,12 +2,13 @@ import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 export default function Login() {
-  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const { setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
     setIsLoggedIn(true); 
-    navigate('/dashboard/home');
+    navigate('/home');
   };
   return (
     <>
