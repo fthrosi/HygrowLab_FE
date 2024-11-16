@@ -26,20 +26,20 @@ export default function Navbar() {
   return (
     <div className="fixed w-full">
       <nav
-        className={`md:flex xl:px-[18.75rem] md:px-10 md:py-4 justify-between content-center items-center ${
+        className={`md:flex xl:px-[clamp(15rem,18.75vw,18.75rem)] md:px-10 md:py-4 justify-between content-center items-center ${
           scroll ? "md:shadow-md md:bg-white" : ""
         }`}
       >
-        <div className={`flex justify-between w-full md:w-auto px-[2rem] md:px-0 md:py-0 py-4 ${
+        <div className={`flex justify-between w-full md:w-auto px-[clamp(1rem,5vw,2.5rem)] md:px-0 md:py-0 py-4 ${
           scroll ? "shadow-md bg-white md:shadow-none md:bg-transparent" : ""
         }`}>
           <a href="/beranda" className="flex items-center md:gap-4 gap-2">
             <img
               src="/assets/images/logo.png"
               alt="logo"
-              className="md:size-[6.9vw] size-[10vw] xl:size-[3.313rem]"
+              className="md:size-[clamp(2.4rem,5vw,2.8rem)] lg:size-[4vw] size-[clamp(2rem,10vw,2.5rem)] xl:size-[3.313rem]"
             />
-            <h1 className="font-nunito font-bold md:text-[3.125vw] text-[5.6vw] xl:text-[1.563rem]">
+            <h1 className="font-nunito font-bold md:text-[clamp(1.3rem,2.7vw,1.5rem)] lg:text-[2.3vw] text-[clamp(1.12rem,5.6vw,1.5rem)] xl:text-[1.563rem]">
               HygrowLab
             </h1>
           </a>
@@ -62,7 +62,7 @@ export default function Navbar() {
           } md:translate-x-0`}
         >
           <ul
-            className={`navlink flex flex-col md:flex-row items-center md:gap-8 text-xl md:text-[2.6vw] xl:text-[1.25rem] font-nunito`}
+            className={`navlink flex flex-col md:flex-row items-center md:gap-8 text-xl md:text-[clamp(1.3rem,2.7vw,1.5rem) lg:text-[2vw] xl:text-[1.25rem] font-nunito`}
           >
             <li>
               <Link
@@ -96,7 +96,7 @@ export default function Navbar() {
             </li>
           </ul>
         </div>
-        <div className="button px-[2rem] py-[0.5rem] bg-primary text-white rounded-[0.438rem] hidden lg:block">
+        <div className="button px-[2rem] py-[0.5rem] bg-primary text-white rounded-[0.438rem] hidden lg:block lg:px-[1.5rem] lg:py-[0.3rem]">
           <a href="/login" className="font-bold">
             Masuk
           </a>
