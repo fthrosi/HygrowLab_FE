@@ -39,16 +39,16 @@ export default function Tanaman() {
                     placeholder="Masukkan nama tanaman"
                   />
                 </div>
-                <div className="w-full flex justify-end">
-                  <button
-                    onClick={tutup}
-                    className=" bg-red-500 py-3 px-14 rounded-xl mt-5 nunito text-white  ">
-                    Cancel
-                  </button>
+                <div className="w-full flex justify-end gap-3">
                   <button
                     className="bg-[rgb(16,185,129)] py-3 px-14 rounded-xl mt-5 nunito text-white  "
                     type="submit">
                     Simpan
+                  </button>
+                  <button
+                    onClick={tutup}
+                    className=" bg-red-500 py-3 px-14 rounded-xl mt-5 nunito text-white  ">
+                    Batal
                   </button>
                 </div>
               </form>
@@ -59,9 +59,9 @@ export default function Tanaman() {
     );
   };
   const navigate = useNavigate();
-   const hanleClick = () => {
-     navigate("/detailtanaman");
-   };
+  const hanleClick = () => {
+    navigate('/detailtanaman');
+  };
   return (
     <>
       {show && <Open />}
