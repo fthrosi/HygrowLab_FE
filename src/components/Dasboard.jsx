@@ -2,8 +2,8 @@ export default function Dasboard() {
   console.log('Dasboard');
   return (
     <div className="w-full">
-      <p className="nunito font-bold text-[22px] ml-9 mt-9">Dasboard</p>
-      <div className="w-[330px] h-[130px] bg-white ml-9 mt-9 flex">
+      <p className="nunito font-bold text-[22px]  mt-9">Dasboard</p>
+      <div className="w-[330px] h-[130px] bg-white  mt-9 flex">
         <div className="w-[70%] h-full flex items-center   ">
           <div className="p-5">
             <p className="text-[21px] font-extrabold nunito">5</p>
@@ -13,10 +13,14 @@ export default function Dasboard() {
           </div>
         </div>
         <div className="w-[30%] h-full flex items-center p-3">
-          <img className="w-full h-[90px]" src="/assets/icons/Icon.png" alt="" />
+          <img
+            className="w-full h-[90px]"
+            src="/assets/icons/Icon.png"
+            alt=""
+          />
         </div>
       </div>
-      <div className="w-full mt-9 ml-9 flex gap-5">
+      <div className="w-full mt-9  flex gap-5">
         <div className="w-[500px] h-[300px] bg-white">
           <div className="p-5">
             <h1 className="nunito text-[23px] font-bold">Data Tanaman</h1>

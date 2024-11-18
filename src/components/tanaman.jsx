@@ -39,16 +39,16 @@ export default function Tanaman() {
                     placeholder="Masukkan nama tanaman"
                   />
                 </div>
-                <div className="w-full flex justify-end">
-                  <button
-                    onClick={tutup}
-                    className=" bg-red-500 py-3 px-14 rounded-xl mt-5 nunito text-white  ">
-                    Cancel
-                  </button>
+                <div className="w-full flex justify-end gap-3">
                   <button
                     className="bg-[rgb(16,185,129)] py-3 px-14 rounded-xl mt-5 nunito text-white  "
                     type="submit">
                     Simpan
+                  </button>
+                  <button
+                    onClick={tutup}
+                    className=" bg-red-500 py-3 px-14 rounded-xl mt-5 nunito text-white  ">
+                    Batal
                   </button>
                 </div>
               </form>
@@ -59,14 +59,14 @@ export default function Tanaman() {
     );
   };
   const navigate = useNavigate();
-   const hanleClick = () => {
-     navigate("/detailtanaman");
-   };
+  const hanleClick = () => {
+    navigate('/detailtanaman');
+  };
   return (
     <>
       {show && <Open />}
       <div className="w-full">
-        <div className="w-[95%] flex  justify-between mt-9 mx-auto">
+        <div className="w-full flex  justify-between mt-9 mx-auto">
           <p className="nunito font-bold text-[22px] ">Tanaman Saya</p>
           <div
             onClick={muncul}
@@ -75,26 +75,28 @@ export default function Tanaman() {
             + Tambah Tanaman
           </div>
         </div>
-        <div className="w-[95%] mx-auto ">
-          <div className="w-[240px] h-[260px] shadow-2xl rounded-md">
-            <div className="w-full h-[60%]" onClick={hanleClick}>
-              <div className='w-full h-full bg-cover p-1' style={{ backgroundImage: `url("/assets/images/foto.png")` }}>
-                  <div className='flex justify-end'>
-                      <div className='w-[26px] h-[26px] rounded-full bg-off-white flex justify-center items-center'>
-                          <img src="assets/icons/Group.png" alt="icon" />
-                      </div>
+        <div className="w-full mx-auto ">
+          <div
+            onClick={hanleClick}
+            className="w-[240px] h-[260px] shadow-2xl rounded-md hover:cursor-pointer">
+            <div className="w-full h-[60%] ">
+              <div
+                className="w-full h-full bg-cover p-1"
+                style={{ backgroundImage: `url("/assets/images/foto.png")` }}>
+                <div className="flex justify-end">
+                  <div
+                    onClick={(e) => e.stopPropagation()}
+                    className="w-[26px] h-[26px] rounded-full bg-off-white flex justify-center items-center">
+                    <img src="assets/icons/Group.png" alt="icon" />
                   </div>
+                </div>
               </div>
-              <div className='px-3 mt-6'>
-                <h1 className='text-primary text-[18px]'>
-                  Pakcoy
-                </h1>
+              <div className="px-3 mt-6">
+                <h1 className="text-primary text-[18px]">Pakcoy</h1>
               </div>
-              <div className='flex justify-between px-3 mt-1'>
-                  <h1 className='font-bold text-[18px]'>
-                    Pakcoy Kolam 4
-                  </h1>
-                  <img src="/assets/icons/share.png" alt="icon" />
+              <div className="flex justify-between px-3 mt-1">
+                <h1 className="font-bold text-[18px]">Pakcoy Kolam 4</h1>
+                <img src="/assets/icons/share.png" alt="icon" />
               </div>
             </div>
           </div>
