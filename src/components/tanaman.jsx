@@ -65,9 +65,8 @@ export default function Tanaman() {
   return (
     <>
       {show && <Open />}
-      <div className="w-full">
-        <div className="w-[95%] flex  justify-between mt-9 mx-auto">
-          <p className="nunito font-bold text-[22px] ">Tanaman Saya</p>
+      <div className="w-full h-full bg-white rounded-md mt-9 p-5">
+        <div className="flex w-full justify-end">
           <div
             onClick={muncul}
             href=""
@@ -75,7 +74,7 @@ export default function Tanaman() {
             + Tambah Tanaman
           </div>
         </div>
-        <div className="w-[95%] mx-auto ">
+        <div className="mx-auto ">
           <div className="w-[240px] h-[260px] shadow-2xl rounded-md">
             <div className="w-full h-[60%]" onClick={hanleClick}>
               <div className='w-full h-full bg-cover p-1' style={{ backgroundImage: `url("/assets/images/foto.png")` }}>
