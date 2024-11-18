@@ -1,5 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
 export default function Register() {
+  const navigate = useNavigate();
+  const handleDaftar = () => {
+    navigate('/login');
+  };
   return (
     <>
       <div className=" flex w-full h-[100vh]   items-center justify-center ">
@@ -108,6 +115,7 @@ export default function Register() {
                       placeholder="Konfirmasi Password"
                     />
                   </div>
+
                 </div>
                 <input
                   className="w-full bg-[rgb(16,185,129)] text-white py-2.5 mt-3 rounded-lg hover:cursor-pointer"
@@ -121,6 +129,8 @@ export default function Register() {
                   Masuk
                 </a>
               </p>
+
+          
             </div>
           </div>
         </div>
