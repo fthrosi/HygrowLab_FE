@@ -12,7 +12,7 @@ export default function LandingLayout() {
   return (
     <div className="flex min-h-screen overflow-x-auto">
       <Sidebar open={open} toggleSidebar={toggleSidebar}/>
-      <div className="relative overflow-auto w-screen h-screen bg-off-white py-[2rem] px-[1rem]">
+      <div className="relative overflow-auto w-screen h-screen bg-[#F9FAFC] py-[2rem] px-[1rem]">
         <div className="flex items-center justify-between overflow-auto">
           <img src="/assets/icons/burger.png" alt="" className="xl:size-7 size-[1.5rem]" onClick={toggleSidebar}/>
           <NavbarProfile />

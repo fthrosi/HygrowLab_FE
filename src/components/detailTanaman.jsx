@@ -63,7 +63,7 @@ export default function Tanaman() {
     <>
       <div className="py-9 w-full">
         <div className="bg-white rounded-md shadow-lg">
-          <div className="flex justify-between bg-slate-400 rounded-t-md">
+          <div className="flex justify-between bg-[#F6F6F6] rounded-t-md">
             {week.map((item) => (
               <div
                 key={item.id}
@@ -77,7 +77,7 @@ export default function Tanaman() {
             ))}
           </div>
           <div className="flex md:flex-row flex-col xl:mt-10 mt-5 xl:gap-32 gap-16 pb-10 px-5 pt-5">
-            <div className="flex flex-col xl:w-1/2">
+            <div className="flex flex-col xl:w-1/2 order-2 md:order-1">
               <div className="flex gap-10">
                 <div className="flex flex-col gap-3">
                   <h1 className="font-bold text-[0.75rem] xl:text-[1rem]">Tanggal</h1>
@@ -159,7 +159,7 @@ export default function Tanaman() {
                 </div>
               </form>
             </div>
-            <div className="flex flex-col xl:w-1/2">
+            <div className="flex flex-col xl:w-1/2 order-1 md:order-2">
               <div className="xl:w-[35rem] xl:h-[23rem]">
                 <img
                   src="assets/images/foto.png"
