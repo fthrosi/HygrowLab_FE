@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Sidebar({ open, toggleSidebar }) {
   const location = useLocation();
@@ -7,6 +7,7 @@ export default function Sidebar({ open, toggleSidebar }) {
   };
   return (
     <div
+<<
       className={`min-h-screen gap-4 shrink-0 pt-9 transition-all duration-300 ease-in-out bg-primary ${
         open
           ? "xl:px-5 xl:w-[300px] px-5 w-full md:w-[300px]"
@@ -40,6 +41,7 @@ export default function Sidebar({ open, toggleSidebar }) {
                 open ? "" : "hidden"
               }`}
             >
+
               HygrowLab
             </h1>
           </div>
@@ -64,7 +66,10 @@ export default function Sidebar({ open, toggleSidebar }) {
         <ul className={`mt-10 flex flex-col gap-4 xl:px-2`}>
           <li>
             <Link
+              onClick={toggleSidebar}
               to="/home"
+
+            
               className={`hover:text-black xl:text-[1.313rem] text-[1rem] nunito font-bold flex items-center  gap-4 hover:cursor-pointer xl:px-2 xl:py-2 md:py-1 md:px-1 px-2 py-2 rounded-lg ${
                 isActive("/home") ? "text-primary bg-white" : "text-white"
               } ${open ? "" : "justify-center"}`}
@@ -99,11 +104,15 @@ export default function Sidebar({ open, toggleSidebar }) {
               >
                 Dashboard{" "}
               </h1>
+
             </Link>
           </li>
           <li>
             <Link
+              onClick={toggleSidebar}
               to="/tanaman"
+
+            
               className={`hover:text-black xl:text-[1.313rem] text-[1rem] nunito font-bold flex items-center  gap-4 hover:cursor-pointer xl:px-2 xl:py-2 md:py-1 md:px-1 px-2 py-2 rounded-lg ${
                 isActive("/tanaman") ? "text-primary bg-white" : "text-white"
               } ${open ? "" : "justify-center"}`}
@@ -139,11 +148,14 @@ export default function Sidebar({ open, toggleSidebar }) {
               >
                 Tanaman Saya
               </h1>
+
             </Link>
           </li>
           <li>
             <Link
+              onClick={toggleSidebar}
               to="/nutrisi"
+
               className={`hover:text-black xl:text-[1.313rem] text-[1rem] nunito font-bold flex items-center  gap-4 hover:cursor-pointer xl:px-2 xl:py-2 md:py-1 md:px-1 px-2 py-2 rounded-lg ${
                 isActive("/nutrisi") ? "text-primary bg-white" : "text-white"
               } ${open ? "" : "justify-center"}`}
@@ -178,6 +190,7 @@ export default function Sidebar({ open, toggleSidebar }) {
               >
                 Kalkulasi Nutrisi
               </h1>
+
             </Link>
           </li>
         </ul>

@@ -1,4 +1,10 @@
-import { BrowserRouter, Route, Routes, Navigate,Outlet } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  Navigate,
+  Outlet,
+} from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Beranda from './components/beranda';
 import LandingLayout from './layouts/Landing';
@@ -12,6 +18,7 @@ import Tanaman from './components/tanaman';
 import Nutrisi from './components/nutrisi';
 import DetailTanaman from './components/detailTanaman';
 import './App.css';
+import Profile from './components/profile';
 
 function App() {
   return (
@@ -33,6 +40,7 @@ function App() {
               <Route path="/tanaman" element={<Tanaman />} />
               <Route path="/nutrisi" element={<Nutrisi />} />
               <Route path="/detailtanaman" element={<DetailTanaman />} />
+              <Route path="/profile" element={<Profile />} />
             </Route>
           </Route>
         </Routes>
