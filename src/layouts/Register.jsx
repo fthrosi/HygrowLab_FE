@@ -1,12 +1,63 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+// import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
-  const navigate = useNavigate();
-  const handleDaftar = () => {
-    navigate('/login');
+  // const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setErrors] = useState({ password: '', confirmPassword: '' });
+
+  const validatePassword = () => {
+    const error = {};
+
+    if (confirmPassword && confirmPassword !== password) {
+      error.confirmPassword = 'Passwords do not match.';
+    }
+
+    setErrors(error);
+    return Object.keys(error).length === 0;
   };
+
+  const onSubmit = async (data) => {
+    data.password = password;
+    if (validatePassword()) {
+      try {
+        // Kirim data ke backend Express
+        const response = await fetch('http://localhost:4000/api/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert(result.message); // Menampilkan pesan sukses
+        } else {
+          alert(result.error); // Menampilkan pesan error jika ada
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat mengirim data');
+      }
+    }
+  };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (validatePassword()) {
+  //     alert('Form submitted successfully!');
+  //     // Add your form submission logic here
+  //   }
+  // };
   return (
     <>
       <div className=" flex w-full h-[100vh]   items-center justify-center ">
@@ -31,29 +82,11 @@ export default function Register() {
               </p>
             </div>
             <div className="w-full mt-2">
-              <form className="nunito flex flex-col" action="">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="nunito flex flex-col"
+                action="">
                 <label className="font-bold" htmlFor="email">
-                  Username
-                </label>
-                <div className="w-full border-2 border-gray-200 mt-2  ">
-                  <div className="px-4  flex items-center">
-                    <div className="w-[10%]">
-                      <img
-                        className="w-[18px] h-[18px]"
-                        src="assets/images/username.png"
-                        alt=""
-                      />
-                    </div>
-                    <input
-                      className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
-                      type="email"
-                      name="email"
-                      id="email"
-                      placeholder="Masukkan Username"
-                    />
-                  </div>
-                </div>
-                <label className="font-bold mt-2" htmlFor="email">
                   Email
                 </label>
                 <div className="w-full border-2 border-gray-200 mt-2  ">
@@ -68,12 +101,43 @@ export default function Register() {
                     <input
                       className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
                       type="email"
-                      name="email"
-                      id="email"
+                      {...register('email', {
+                        required: 'Email wajib diisi',
+                      })}
                       placeholder="Masukkan Email"
                     />
                   </div>
                 </div>
+                {errors.email && (
+                  <p className="nunito" style={{ color: 'red' }}>
+                    {errors.email.message}
+                  </p>
+                )}
+                <label className="font-bold mt-2" htmlFor="email">
+                  Nama
+                </label>
+                <div className="w-full border-2 border-gray-200 mt-2  ">
+                  <div className="px-4  flex items-center">
+                    <div className="w-[10%]">
+                      <img
+                        className="w-[18px] h-[18px]"
+                        src="assets/images/username.png"
+                        alt=""
+                      />
+                    </div>
+                    <input
+                      className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
+                      type="text"
+                      {...register('nama', { required: 'Nama wajib diisi' })}
+                      placeholder="Masukkan Nama"
+                    />
+                  </div>
+                </div>
+                {errors.nama && (
+                  <p className="nunito" style={{ color: 'red' }}>
+                    {errors.nama.message}
+                  </p>
+                )}
                 <label className="font-bold mt-2" htmlFor="passwordd">
                   Password
                 </label>
@@ -89,11 +153,18 @@ export default function Register() {
                     <input
                       className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
                       type="password"
-                      name="passwordd"
-                      id="passwordd"
+                      {...register('password')}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      onBlur={validatePassword}
                       placeholder="Masukkan Password"
                     />
                   </div>
+                  {errors.password && (
+                    <p className="nunito" style={{ color: 'red' }}>
+                      {errors.password.message}
+                    </p>
+                  )}
                 </div>
                 <label className="font-bold mt-2" htmlFor="passwordd">
                   Konfirmasi Password
@@ -110,13 +181,18 @@ export default function Register() {
                     <input
                       className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
                       type="password"
-                      name="passwordd"
-                      id="passwordd"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      onBlur={validatePassword}
                       placeholder="Konfirmasi Password"
                     />
                   </div>
-
                 </div>
+                {error.confirmPassword && (
+                  <p className="nunito" style={{ color: 'red' }}>
+                    {error.confirmPassword}
+                  </p>
+                )}
                 <input
                   className="w-full bg-[rgb(16,185,129)] text-white py-2.5 mt-3 rounded-lg hover:cursor-pointer"
                   type="submit"
@@ -129,8 +205,6 @@ export default function Register() {
                   Masuk
                 </a>
               </p>
-
-          
             </div>
           </div>
         </div>

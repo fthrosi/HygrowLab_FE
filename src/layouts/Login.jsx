@@ -1,15 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 export default function Login() {
   const { setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    setIsLoggedIn(true);
-    navigate('/home');
+    try {
+      const response = await axios.post('http://localhost:4000/api/login', {
+        email,
+        password,
+      });
+      setTimeout(() => {
+        setLoading(false); // Hentikan loading
+        setIsLoggedIn(true);
+        navigate('/home'); // Navigasi ke halaman lain
+      }, 1000);
+
+      console.log('User ID:', response.data.userId); // Simpan user ID jika diperlukan
+    } catch (error) {
+      setErrorMessage(error.response?.data?.message || 'Terjadi kesalahan.');
+      console.log(error);
+    }
   };
+  // const handleLogin = (e) => {
+  //   e.preventDefault();
+  //   setIsLoggedIn(true);
+  //   navigate('/home');
+  // };
   return (
     <>
       <div className=" flex w-full h-[100vh]   items-center justify-center ">
@@ -34,7 +59,10 @@ export default function Login() {
               </p>
             </div>
             <div className="w-full mt-2">
-              <form className="nunito flex flex-col" action="">
+              <form
+                onSubmit={handleLogin}
+                className="nunito flex flex-col"
+                action="">
                 <label className="font-bold mt-2" htmlFor="email">
                   Email
                 </label>
@@ -50,8 +78,8 @@ export default function Login() {
                     <input
                       className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
                       type="email"
-                      name="email"
-                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       placeholder="Masukkan Email"
                     />
                   </div>
@@ -71,18 +99,17 @@ export default function Login() {
                     <input
                       className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
                       type="password"
-                      name="passwordd"
-                      id="passwordd"
                       placeholder="Masukkan Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
                 </div>
-
+                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 <input
                   className="w-full bg-[rgb(16,185,129)] text-white py-2.5 mt-3 rounded-lg hover:cursor-pointer"
                   type="submit"
                   value="Masuk"
-                  onClick={handleLogin}
                 />
               </form>
               <p className="nunito text-[rgb(176,176,176)] mt-2">
