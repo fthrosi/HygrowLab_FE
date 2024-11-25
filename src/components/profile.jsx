@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 export default function Profile() {
   const [show, setShow] = useState(false);
+
   const muncul = () => {
     setShow(true);
   };
@@ -61,6 +62,11 @@ export default function Profile() {
       </>
     );
   };
+
+  // Tampilkan loading atau error jika ada
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
   return (
     <>
       {show && <Open />}
@@ -98,7 +104,7 @@ export default function Profile() {
                 </label>
                 <input
                   type="text"
-                  value="Joan Carolus amola purba"
+                  value="joan carolus amola purba"
                   className="w-full nunito  mt-1 py-2 px-2.5 mb-4 bg-gray-50"
                 />
                 <label htmlFor="" className="nunito font-bold ">

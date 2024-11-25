@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -29,7 +29,7 @@ export default function Register() {
     if (validatePassword()) {
       try {
         // Kirim data ke backend Express
-        const response = await fetch('http://localhost:4000/api/register', {
+        const response = await fetch('http://localhost:4000/auth/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export default function Register() {
         const result = await response.json();
 
         if (response.ok) {
-          alert(result.message); // Menampilkan pesan sukses
+          navigate('/login'); // Menampilkan pesan sukses
         } else {
           alert(result.error); // Menampilkan pesan error jika ada
         }
