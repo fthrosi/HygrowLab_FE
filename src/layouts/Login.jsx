@@ -14,7 +14,7 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4000/api/login', {
+      const response = await axios.post('http://localhost:4000/auth/login', {
         email,
         password,
       });
@@ -23,10 +23,18 @@ export default function Login() {
         setIsLoggedIn(true);
         navigate('/home'); // Navigasi ke halaman lain
       }, 1000);
-
-      console.log('User ID:', response.data.userId); // Simpan user ID jika diperlukan
+      // const array = Object.values(response.data);
+      // const { idUser } = array[1].data.id;
+      sessionStorage.setItem(
+        'id_user',
+        JSON.stringify(response.data.data.data.id)
+      );
+      const sesi = sessionStorage.getItem('id_user');
+      console.log('User ID:', sesi); // Simpan user ID jika diperlukan
     } catch (error) {
-      setErrorMessage(error.response?.data?.message || 'Terjadi kesalahan.');
+      setErrorMessage(
+        error.response?.data?.message || 'Email atau password salah'
+      );
       console.log(error);
     }
   };
