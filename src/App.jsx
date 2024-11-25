@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Routes, Navigate,Outlet } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { BrowserRouter, Route, Routes, Navigate, Outlet } from 'react-router-dom';
+import AuthProvider, { useAuth } from './context/AuthContext';  // Correct import
 import Beranda from './components/beranda';
 import LandingLayout from './layouts/Landing';
 import TentangKami from './components/tentangKami';
@@ -29,7 +29,6 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route element={<DashboardLayout />}>
               <Route path="/home" element={<DashboardHome />} />
-              {/* <Route path="profile" element={<DashboardProfile />} /> */}
               <Route path="/tanaman" element={<Tanaman />} />
               <Route path="/nutrisi" element={<Nutrisi />} />
               <Route path="/detailtanaman" element={<DetailTanaman />} />
@@ -43,16 +42,11 @@ function App() {
 
 const LandingPageOrDashboard = () => {
   const { isLoggedIn } = useAuth();
-  return isLoggedIn ? (
-    <Navigate to="/dashboard/home" />
-  ) : (
-    <Navigate to="/beranda" />
-  );
+  return isLoggedIn ? <Navigate to="/dashboard/home" /> : <Navigate to="/beranda" />;
 };
 
 const PrivateRoute = () => {
   const { isLoggedIn } = useAuth();
-  console.log(isLoggedIn);
   return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
 };
 

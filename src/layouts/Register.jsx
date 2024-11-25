@@ -1,12 +1,47 @@
-import React from 'react';
+import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { registerUser } from '../api/auth';
 
 export default function Register() {
-  const navigate = useNavigate();
-  const handleDaftar = () => {
-    navigate('/login');
+  const [formData, setFormData] = useState({
+    fullname: '',
+    date: '',
+    CITY: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
+  const navigate = useNavigate();
+  const handleDaftar = async (e) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+    }
+
+    const formattedData = {
+        fullName: formData.fullname,
+        email: formData.email,
+        password: formData.password,
+        city: formData.CITY,
+        birthDate: formData.date,
+    };
+
+    try {
+        await registerUser(formattedData);
+        navigate('/login');
+    } catch (error) {
+        console.error("Registrasi gagal:", error.response?.data || error.message);
+    }
+};
   return (
     <>
       <div className=" flex w-full h-[100vh]   items-center justify-center ">
@@ -31,9 +66,9 @@ export default function Register() {
               </p>
             </div>
             <div className="w-full mt-2">
-              <form className="nunito flex flex-col" action="">
-                <label className="font-bold" htmlFor="email">
-                  Username
+              <form className="nunito flex flex-col" onSubmit={handleDaftar}>
+                <label className="font-bold" htmlFor="fullname">
+                  Fullname
                 </label>
                 <div className="w-full border-2 border-gray-200 mt-2  ">
                   <div className="px-4  flex items-center">
@@ -46,10 +81,58 @@ export default function Register() {
                     </div>
                     <input
                       className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
-                      type="email"
-                      name="email"
-                      id="email"
-                      placeholder="Masukkan Username"
+                      type="fullname"
+                      name="fullname"
+                      id="fullname"
+                      value={formData.fullname}
+                      onChange={handleChange}
+                      placeholder="Masukkan Full Name"
+                    />
+                  </div>
+                </div>
+                <label className="font-bold">
+                  BirthDay
+                </label>
+                <div className="w-full border-2 border-gray-200 mt-2  ">
+                  <div className="px-4  flex items-center">
+                    <div className="w-[10%]">
+                      <img
+                        className="w-[18px] h-[18px]"
+                        src="assets/images/username.png"
+                        alt=""
+                      />
+                    </div>
+                    <input
+                      className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
+                      type="date"
+                      name="date"
+                      id="date"
+                      value={formData.date}
+                      onChange={handleChange}
+                      placeholder="Input Tanggal Lahir"
+                    />
+                  </div>
+                </div>
+                <label className="font-bold">
+                  City
+                </label>
+                <div className="w-full border-2 border-gray-200 mt-2  ">
+                  <div className="px-4  flex items-center">
+                    <div className="w-[10%]">
+                      <img
+                        className="w-[18px] h-[18px]"
+                        src="assets/images/username.png"
+                        alt=""
+                      />
+                    </div>
+                    <input
+                      className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
+                      type="text"
+                      name="CITY"
+                      id="CITY"
+                      value={formData.CITY}
+                      onChange={handleChange}
+                      placeholder="Inputkan Kota"
                     />
                   </div>
                 </div>
@@ -70,6 +153,8 @@ export default function Register() {
                       type="email"
                       name="email"
                       id="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       placeholder="Masukkan Email"
                     />
                   </div>
@@ -89,8 +174,10 @@ export default function Register() {
                     <input
                       className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
                       type="password"
-                      name="passwordd"
-                      id="passwordd"
+                      name="password"
+                      id="password"
+                      value={formData.password}
+                      onChange={handleChange}
                       placeholder="Masukkan Password"
                     />
                   </div>
@@ -110,8 +197,10 @@ export default function Register() {
                     <input
                       className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
                       type="password"
-                      name="passwordd"
-                      id="passwordd"
+                      name="confirmPassword"
+                      id="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
                       placeholder="Konfirmasi Password"
                     />
                   </div>
