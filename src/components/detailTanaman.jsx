@@ -1,198 +1,234 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { GetPencatatan, ubahFoto,editCatatan } from "../api/pencatatan";
+import ModalEdit from "./modalEdit";
 export default function Tanaman() {
+  const { id } = useParams();
   const [tab, setTab] = useState(1);
-  const [active, setActive] = useState(false);
-  const handleActive = () => {
-    setActive(!active);
+  const [week, setWeek] = useState([]);
+  const [show, setShow] = useState(false);
+  const [editData, seteditData] = useState({
+    tinggi_Tanaman: "",
+    note: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    seteditData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
-  const week = [
-    {
-      id: 1,
-      tanggal: "12/12/2021",
-      status: "Berlangsung",
-      nama: "Kangkung",
-      tinggi: "1",
-      usia: "1",
-      volume: "1000",
-      vitA: "1000",
-      vitB: "1000",
-    },
-    {
-      id: 2,
-      tanggal: "13/12/2021",
-      status: "Panen",
-      nama: "pakcoy",
-      tinggi: "0.5",
-      usia: "2",
-      volume: "500",
-      vitA: "500",
-      vitB: "500",
-    },
-    {
-      id: 3,
-      tanggal: "14/12/2021",
-      status: "Gagal",
-      nama: "sawi",
-      tinggi: "0.3",
-      usia: "3",
-      volume: "300",
-      vitA: "300",
-      vitB: "300",
-    },
-    {
-      id: 4,
-      tanggal: "15/12/2021",
-      status: "Berlangsung",
-      nama: "bayam",
-      tinggi: "0.7",
-      usia: "4",
-      volume: "700",
-      vitA: "700",
-      vitB: "700",
-    },
-  ];
+  const tutup = () => {
+    setShow(!show);
+  };
+  const handleEdit = async (editData) => {
+    try {
+      // Assuming editCatatan expects the id and the data
+      console.log("Editing data:",currentWeek.id, editData);
+      await editCatatan(currentWeek.id, editData); // Pass the `id` and `editData`
+      fetchWeek(); // Refresh the data after the edit
+    } catch (error) {
+      console.error("Error editing the data:", error);
+    }
+  };
+  const handleFoto = async (idRecord, file) => {
+    try {
+      const formData = new FormData();
+      formData.append("foto", file);
+      formData.append("idRecord", idRecord);
+      const respons = await ubahFoto(idRecord, formData);
+      fetchWeek();
+      return respons;
+    } catch (error) {
+      console.log("error");
+    }
+  };
+  const fetchWeek = async () => {
+    try {
+      const response = await GetPencatatan(id);
+      const data = response.data;
+      setWeek(data);
+    } catch (error) {
+      console.error("Gagal menampilkan data tanaman", error);
+    }
+  };
+  const currentWeek =
+    week?.data && week.data.length > 0
+      ? week.data.find((item) => item.usia === tab)
+      : null;
   useEffect(() => {
-    const aktif = document.getElementById("myform");
-    const ele = aktif.querySelectorAll("input");
-      ele.forEach((input) => {
-        input.disabled = !active; 
-      });
-  }, [active]); 
+    fetchWeek();
+  }, []);
 
   return (
     <>
-      <div className="py-9 w-full">
+      <div className="py-9 w-full px-2 md:px-5">
+        {show && (
+          <ModalEdit
+            editData={editData}
+            handleChange={handleChange}
+            handleEdit={handleEdit}
+            tutup={tutup}
+          />
+        )}
         <div className="bg-white rounded-md shadow-lg">
           <div className="flex justify-between bg-[#F6F6F6] rounded-t-md">
-            {week.map((item) => (
+            {Array.from({ length: week?.harvest || 0 }).map((_, index) => (
               <div
-                key={item.id}
-                className={`flex  justify-center  w-[25%] py-2 hover:cursor-pointer transition-all duration-300 ease-in-out ${
-                  tab === item.id ? "bg-white rounded-t-md" : ""
+                key={index}
+                className={`flex justify-center w-[25%] py-2 hover:cursor-pointer transition-all duration-300 ease-in-out xl:text-xl ${
+                  tab === index + 1
+                    ? "bg-white rounded-t-md text-[0.75rem] font-semibold"
+                    : "text-[0.5rem]"
                 }`}
-                onClick={() => setTab(item.id)}
+                onClick={() => setTab(index + 1)}
               >
-                <h1 className="xl:text-xl text-[0.5rem]">Minggu Ke-{item.id}</h1>
+                <h1>Minggu Ke-{index + 1}</h1>
               </div>
             ))}
           </div>
-          <div className="flex md:flex-row flex-col xl:mt-10 mt-5 xl:gap-32 gap-16 pb-10 px-5 pt-5">
-            <div className="flex flex-col xl:w-1/2 order-2 md:order-1">
+          <div className="flex md:flex-row flex-col xl:mt-10 mt-5 xl:gap-32 2xl:gap-52 gap-16 pb-10 px-5 pt-5">
+            <div className="flex flex-col xl:w-1/2 md:w-1/2 order-2 md:order-1">
               <div className="flex gap-10">
                 <div className="flex flex-col gap-3">
-                  <h1 className="font-bold text-[0.75rem] xl:text-[1rem]">Tanggal</h1>
-                  <h1 className="text-[0.625rem] xl:text-[1rem]">{week.find((item) => item.id === tab)?.tanggal}</h1>
-                </div>
-                <div className="flex flex-col gap-3">
-                  <h1 className="font-bold text-[0.75rem] xl:text-[1rem]">Status</h1>
-                  <div
-                    className={`px-3 py-1 rounded-full font-nunito font-medium text-[0.625rem] xl:text-[1rem] ${
-                      week.find((item) => item.id === tab)?.status === "Gagal"
-                        ? "bg-red-600 text-white"
-                        : week.find((item) => item.id === tab)?.status ===
-                          "Panen"
-                        ? "bg-green-600 text-white"
-                        : "bg-yellow-200"
-                    }`}
-                  >
-                    {week.find((item) => item.id === tab)?.status}
-                  </div>
+                  <h1 className="font-bold text-[clamp(0.75rem,3.75vw,1rem)] xl:text-[1rem]">
+                    Tanggal
+                  </h1>
+                  <h1 className="text-[clamp(0.625rem,3.1vw,0.9rem)] xl:text-[1rem]">
+                    {week?.tanggalTanam}
+                  </h1>
                 </div>
               </div>
               <hr className="mt-5" />
               <form id="myform" className="flex flex-col" action="">
-                <label className="font-bold mt-2 text-[0.75rem] xl:text-[1rem]">Nama Tanaman</label>
+                <label className="font-bold mt-2 text-[clamp(0.75rem,3.75vw,1rem)] xl:text-[1rem]">
+                  Nama Tanaman
+                </label>
                 <div className="w-full border-2 border-gray-200 mt-2 rounded-md bg-off-white">
                   <div className="px-4  flex items-center rounded-md">
                     <input
-                      className="w-full px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent bg-off-white text-[0.625rem] xl:text-[1rem]"
+                      className="w-full px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent bg-off-white text-[clamp(0.75rem,3.75vw,1rem)] xl:text-[1rem]"
                       name="namatanaman"
                       id="namatanaman"
+                      disabled
                       placeholder="Nama Tanaman"
-                      value={week.find((item) => item.id === tab)?.nama}
+                      value={week?.nama}
                     ></input>
                   </div>
                 </div>
-                <label className="font-bold mt-2 text-[0.75rem] xl:text-[1rem]">Tinggi Tanaman</label>
+                <label className="font-bold mt-2 text-[clamp(0.75rem,3.75vw,1rem)] xl:text-[1rem]">
+                  Tinggi Tanaman
+                </label>
                 <div className="w-full border-2 border-gray-200 mt-2 rounded-md bg-off-white">
                   <div className="px-4  flex items-center rounded-md">
                     <input
-                      className="w-full px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent bg-off-white text-[0.625rem] xl:text-[1rem]"
+                      className="w-full px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent bg-off-white text-[clamp(0.75rem,3.75vw,1rem)] xl:text-[1rem]"
                       name="namatanaman"
                       id="namatanaman"
                       placeholder="Nama Tanaman"
-                      value={`${
-                        week.find((item) => item.id === tab)?.tinggi
-                      } Meter`}
+                      disabled
+                      value={`${currentWeek?.tinggi || 0} Meter`}
                     ></input>
                   </div>
                 </div>
-                <label className="font-bold mt-2 text-[0.75rem] xl:text-[1rem]">Usia Tanaman</label>
+                <label className="font-bold mt-2 text-[clamp(0.75rem,3.75vw,1rem)] xl:text-[1rem]">
+                  Usia Tanaman
+                </label>
                 <div className="w-full border-2 border-gray-200 mt-2 rounded-md bg-off-white">
                   <div className="px-4  flex items-center rounded-md">
                     <input
-                      className="w-full px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent bg-off-white text-[0.625rem] xl:text-[1rem]"
+                      className="w-full px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent bg-off-white text-[clamp(0.75rem,3.75vw,1rem)] xl:text-[1rem]"
                       name="namatanaman"
                       id="namatanaman"
                       placeholder="Nama Tanaman"
-                      value={`${
-                        week.find((item) => item.id === tab)?.usia
-                      } minggu`}
+                      value={`${currentWeek?.usia || 0} minggu`}
+                      disabled
                     ></input>
                   </div>
                 </div>
-                <label className="font-bold mt-5 text-[0.75rem] xl:text-[1rem]">
+                <label className="font-bold mt-5 text-[clamp(0.75rem,3.75vw,1rem)] xl:text-[1rem]">
                   Volume Air Kolam (Liter)
                 </label>
                 <div className="w-full border-2 border-gray-200 mt-2 rounded-md bg-off-white">
                   <div className="px-4 flex items-center ">
                     <input
-                      className="px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent w-full bg-off-white text-[0.625rem] xl:text-[1rem]"
+                      className="px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent w-full bg-off-white text-[clamp(0.75rem,3.75vw,1rem)] xl:text-[1rem]"
                       name="number"
                       id="number"
                       placeholder="Litter"
-                      value={`${
-                        week.find((item) => item.id === tab)?.volume
-                      } ml`}
+                      disabled
+                      value={`${currentWeek?.volume || 0} ml`}
                     />
                   </div>
                 </div>
               </form>
             </div>
             <div className="flex flex-col xl:w-1/2 order-1 md:order-2">
-              <div className="xl:w-[35rem] xl:h-[23rem]">
+              <div className="xl:w-[35rem] 2xl:h-[30rem] 2xl:w-full xl:h-[23rem]">
                 <img
-                  src="assets/images/foto.png"
+                  src={
+                    currentWeek?.foto
+                      ? `http://localhost:4000${currentWeek.foto}`
+                      : "/assets/images/belumadafoto.png"
+                  }
                   alt=""
-                  className="w-full h-full"
+                  className="w-full h-full rounded-lg"
                 />
               </div>
-              <div className="p-1 bg-white shadow-md rounded-md mt-2 text-[0.75rem] xl:text-[1rem]">
+              <div className="p-1 mt-2">
+                <button
+                  className="bg-primary text-white p-2 rounded-md text-[clamp(0.75rem,3.75vw,1rem)]xl:text-[1rem]"
+                  onClick={() => document.getElementById("thumbnail").click()}
+                >
+                  Upload Foto
+                </button>
                 <input
+                  id="thumbnail"
                   type="file"
-                  className="w-full box-border" 
+                  className="w-full box-border hidden"
+                  onChange={(event) => {
+                    const file = event.target.files[0];
+                    const idRecord = currentWeek.id;
+                    handleFoto(idRecord, file);
+                  }}
+                  accept="image/*"
                 />
               </div>
             </div>
           </div>
           <div className="xl:w-1/2 bg-white rounded-md flex flex-col md:flex-row gap-8 px-5">
-            <div>
-              <h1 className="font-bold text-[0.75rem] xl:text-[1rem]">Hasil Kalkulasi</h1>
-              <h1 className="font-semibold mt-4">
-                <span className="text-[0.75rem] xl:text-[1rem]">Nutrisi A</span> : {week.find((item) => item.id === tab)?.vitA} ml
+            <div className="xl:w-[30%] w-[30%] 2xl:w-[20%]">
+              <h1 className="font-bold text-[clamp(0.75rem,3.75vw,1rem)] xl:text-[1rem]">
+                Hasil Kalkulasi
               </h1>
-              <h1 className="font-semibold mt-2">
-                <span className="text-[0.75rem] xl:text-[1rem]">Nutrisi B</span> : {week.find((item) => item.id === tab)?.vitB} ml
+              <h1 className="font-semibold mt-4 text-[clamp(0.875rem,4.37vw,1.1rem)] xl:text-[1rem]">
+                <span className="text-[clamp(0.75rem,3.75vw,1rem)] xl:text-[1rem]">
+                  Nutrisi A
+                </span>
+                : {currentWeek?.nutrient_a || 0} ml
+              </h1>
+              <h1 className="font-semibold mt-2 text-[clamp(0.875rem,4.37vw,1.1rem)] xl:text-[1rem]">
+                <span className="text-[clamp(0.75rem,3.75vw,1rem)] xl:text-[1rem]">
+                  Nutrisi B
+                </span>
+                : {currentWeek?.nutrient_b || 0} ml
               </h1>
             </div>
-            <div className="xl:w-[20rem]">
-              <h1>Catatan</h1>
-              <textarea className="w-full h-40 border-2 border-gray-200 mt-2 rounded-md bg-off-white" />
+            <div className="flex-grow">
+              <h1 className="font-bold">Catatan</h1>
+              <textarea
+                className="w-full h-40 border-2 border-gray-200 mt-2 rounded-md bg-off-white p-2"
+                disabled
+                value={currentWeek?.note}
+              />
             </div>
           </div>
-          <div className=" flex justify-end px-5 pb-5">
-            <button className="bg-primary rounded-md py-2 font-semibold text-white mt-8 px-3" onClick={handleActive}>
-              {active ? "Simpan" : "Edit Pencatatan"}
+          <div className="flex justify-end px-5 pb-5 gap-2">
+            <button
+              className="bg-primary rounded-md py-2 font-semibold text-white mt-8 px-3 text-xs sm:text-sm md:text-base"
+              onClick={tutup}
+            >
+              Edit Pencatatan
             </button>
           </div>
         </div>

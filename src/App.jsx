@@ -28,10 +28,10 @@ function App() {
           </Route>
           <Route element={<PrivateRoute />}>
             <Route element={<DashboardLayout />}>
-              <Route path="/home" element={<DashboardHome />} />
+              <Route path="/home" element={<DashboardHome/>} />
               <Route path="/tanaman" element={<Tanaman />} />
-              <Route path="/nutrisi" element={<Nutrisi />} />
-              <Route path="/detailtanaman" element={<DetailTanaman />} />
+              <Route path="/nutrisi" element={<Nutrisi/>} />
+              <Route path="/detailtanaman/:id" element={<DetailTanaman />} />
             </Route>
           </Route>
         </Routes>
@@ -42,7 +42,7 @@ function App() {
 
 const LandingPageOrDashboard = () => {
   const { isLoggedIn } = useAuth();
-  return isLoggedIn ? <Navigate to="/dashboard/home" /> : <Navigate to="/beranda" />;
+  return isLoggedIn ? <Navigate to="/home" /> : <Navigate to="/beranda" />;
 };
 
 const PrivateRoute = () => {

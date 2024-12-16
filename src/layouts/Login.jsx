@@ -15,7 +15,6 @@ export default function Login() {
     try {
       const data = await loginUser(email, password); 
       localStorage.setItem('access_token', data.accessToken);
-      console.log(data.accessToken);
       setIsLoggedIn(true); // Set login status in the context
       navigate('/home'); // Navigate to home page after successful login
     } catch (error) {

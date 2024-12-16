@@ -4,15 +4,11 @@ const BASE_URL = "http://localhost:4000";
 
 const axiosInstance = axios.create({
     baseURL: BASE_URL, 
-    headers: {
-        "Content-Type": "application/json",
-    },
 });
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('access_token'); 
-        console.log(token); 
+        const token = localStorage.getItem('access_token');
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }
@@ -28,10 +24,11 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     (error) => {
+        console.log(error.response)
         if (error.response && error.response.status === 401) {
             console.error("Unauthorized, please login again.");
         } else {
-            console.error("Terjadi kesalahan:", error.message);
+            console.error("Terjadi kesalahan:", error.response);
         }
         return Promise.reject(error);
     }
