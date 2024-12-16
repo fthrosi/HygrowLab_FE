@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 
-export default function Sidebar({ open, toggleSidebar }) {
+export default function Sidebar({ open, toggleSidebar,tutup }) {
   const location = useLocation();
   const isActive = (path) => {
     return location.pathname === path;
@@ -69,7 +69,7 @@ export default function Sidebar({ open, toggleSidebar }) {
       to: "/nutrisi",
       svg: (
         <svg
-          className="xl:size-7 size-[clamp(1.25rem,6.25vw,1.5rem)] 2xl:size-8 flex-shrink-0" 
+          className="xl:size-7 size-[clamp(1.25rem,6.25vw,1.5rem)] 2xl:size-8 flex-shrink-0"
           viewBox="0 0 20 20"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +96,7 @@ export default function Sidebar({ open, toggleSidebar }) {
   ];
   return (
     <div
-      className={`min-h-screen gap-4 shrink-0 md:pt-6 lg:pt-9 pt-5 transition-all duration-300 ease-in-out bg-primary ${
+      className={`min-h-screen gap-4 shrink-0 md:pt-6 lg:pt-9 pt-5 transition-all duration-300 ease-in-out bg-primary flex flex-col justify-between ${
         open
           ? "xl:px-5 xl:w-[300px] px-5 w-full md:w-[250px]"
           : "xl:w-[70px] md:px-3 xl:px-2 w-0 md:w-[70px]"
@@ -124,16 +124,13 @@ export default function Sidebar({ open, toggleSidebar }) {
                 fill="white"
               />
             </svg>
-            {open && (<h1
-              className={`nunito font-bold text-[1.5rem] text-white`}
-            >
-              HygrowLab
-            </h1>)}
+            {open && (
+              <h1 className={`nunito font-bold text-[1.5rem] text-white`}>
+                HygrowLab
+              </h1>
+            )}
           </div>
-          <button
-            onClick={toggleSidebar}
-            className="xl:size-7 md:hidden"
-          >
+          <button onClick={toggleSidebar} className="xl:size-7 md:hidden">
             <svg
               viewBox="0 0 48 48"
               fill="none"
@@ -157,17 +154,85 @@ export default function Sidebar({ open, toggleSidebar }) {
                 } ${open ? "" : "justify-center"}`}
               >
                 {item.svg}
-                {open && (<h1
-                  className={`text-[clamp(0.75rem,5vw,1.3rem)] md:text-[1.25rem] xl:text-[1.313rem] ${
-                    isActive(item.to) ? "" : " hover:text-black"
-                  }`}
-                >
-                  {item.name}
-                </h1>)
-                }
+                {open && (
+                  <h1
+                    className={`text-[clamp(0.75rem,5vw,1.3rem)] md:text-[1.25rem] xl:text-[1.313rem] ${
+                      isActive(item.to) ? "" : " hover:text-black"
+                    }`}
+                  >
+                    {item.name}
+                  </h1>
+                )}
               </Link>
             </li>
           ))}
+        </ul>
+      </div>
+      <div className="py-5">
+        <ul className="flex flex-col gap-2">
+          <li className="">
+            <Link
+              // to={item.to}
+              className={`nunito font-bold flex items-center  gap-4 hover:cursor-pointer xl:px-2 xl:py-2 md:py-1 md:px-2 px-2 py-2 rounded-lg text-white ${
+                open ? "" : "justify-center"
+              }`}
+            >
+              <div
+                className="bg-red-700 xl:size-7 size-[clamp(1.25rem,6.25vw,1.5rem)] 2xl:size-7 flex-shrink-0 rounded-full"
+                style={{
+                  backgroundImage: `url(/assets/images/belumadafoto.png)`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></div>
+              {open && (
+                <h1
+                  className={`text-[clamp(0.75rem,5vw,1.3rem)] md:text-[1.25rem] xl:text-[1.313rem] hover:text-black`}
+                >
+                  Profil Saya
+                </h1>
+              )}
+            </Link>
+          </li>
+          <li className="">
+            <Link
+              onClick={tutup}
+              className={`nunito font-bold flex items-center  gap-4 hover:cursor-pointer xl:px-2 xl:py-2 md:py-1 md:px-2 px-2 py-2 rounded-lg text-white ${
+                open ? "" : "justify-center"
+              }`}
+            >
+              <svg
+                className="xl:size-6 size-[clamp(1.25rem,6.25vw,1.5rem)] 2xl:size-6 flex-shrink-0"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_1534_6728)">
+                  <path
+                    d="M1.66667 17.5V2.5C1.66667 2.27899 1.75446 2.06702 1.91074 1.91074C2.06702 1.75446 2.27899 1.66667 2.5 1.66667H6.66667V0H2.5C1.83696 0 1.20107 0.263392 0.732233 0.732233C0.263392 1.20107 0 1.83696 0 2.5L0 17.5C0 18.163 0.263392 18.7989 0.732233 19.2678C1.20107 19.7366 1.83696 20 2.5 20H6.66667V18.3333H2.5C2.27899 18.3333 2.06702 18.2455 1.91074 18.0893C1.75446 17.933 1.66667 17.721 1.66667 17.5Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M19.2685 8.23207L15.4468 4.4104L14.2685 5.58873L17.8218 9.14207L4.16602 9.16623V10.8329L17.8685 10.8087L14.2668 14.4104L15.4452 15.5887L19.2668 11.7671C19.7357 11.2985 19.9993 10.6628 19.9996 9.99991C20 9.337 19.737 8.70111 19.2685 8.23207Z"
+                    fill="white"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_1534_6728">
+                    <rect width="20" height="20" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+
+              {open && (
+                <h1
+                  className={`text-[clamp(0.75rem,5vw,1.3rem)] md:text-[1.25rem] xl:text-[1.313rem] hover:text-black`}
+                >
+                  Keluar Akun
+                </h1>
+              )}
+            </Link>
+          </li>
         </ul>
       </div>
     </div>
