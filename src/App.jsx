@@ -13,6 +13,7 @@ import Nutrisi from './components/nutrisi';
 import DetailTanaman from './components/detailTanaman';
 import { Toaster } from 'sonner';
 import './App.css';
+import Profile from './components/profile';
 
 function App() {
   return (
