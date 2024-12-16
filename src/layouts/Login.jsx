@@ -29,8 +29,8 @@ export default function Login() {
         'id_user',
         JSON.stringify(response.data.data.data.id)
       );
-      const sesi = sessionStorage.getItem('id_user');
-      console.log('User ID:', sesi); // Simpan user ID jika diperlukan
+      // const sesi = sessionStorage.getItem('id_user');
+      // console.log('User ID:', sesi); // Simpan user ID jika diperlukan
     } catch (error) {
       setErrorMessage(
         error.response?.data?.message || 'Email atau password salah'

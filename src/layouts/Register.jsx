@@ -113,7 +113,7 @@ export default function Register() {
                     {errors.email.message}
                   </p>
                 )}
-                <label className="font-bold mt-2" htmlFor="email">
+                <label className="font-bold mt-3" htmlFor="email">
                   Nama
                 </label>
                 <div className="w-full border-2 border-gray-200 mt-2  ">
@@ -138,7 +138,7 @@ export default function Register() {
                     {errors.nama.message}
                   </p>
                 )}
-                <label className="font-bold mt-2" htmlFor="passwordd">
+                <label className="font-bold mt-3" htmlFor="passwordd">
                   Password
                 </label>
                 <div className="w-full border-2 border-gray-200 mt-2  ">
@@ -166,7 +166,7 @@ export default function Register() {
                     </p>
                   )}
                 </div>
-                <label className="font-bold mt-2" htmlFor="passwordd">
+                <label className="font-bold mt-3" htmlFor="passwordd">
                   Konfirmasi Password
                 </label>
                 <div className="w-full border-2 border-gray-200 mt-2  ">
@@ -194,7 +194,7 @@ export default function Register() {
                   </p>
                 )}
                 <input
-                  className="w-full bg-[rgb(16,185,129)] text-white py-2.5 mt-3 rounded-lg hover:cursor-pointer"
+                  className="w-full bg-[rgb(16,185,129)] text-white py-2.5 mt-5 rounded-lg hover:cursor-pointer"
                   type="submit"
                   value="Daftar"
                 />

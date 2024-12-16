@@ -19,6 +19,7 @@ import Nutrisi from './components/nutrisi';
 import DetailTanaman from './components/detailTanaman';
 import './App.css';
 import Profile from './components/profile';
+import 'react-calendar/dist/Calendar.css';
 
 function App() {
   return (
@@ -51,11 +52,7 @@ function App() {
 
 const LandingPageOrDashboard = () => {
   const { isLoggedIn } = useAuth();
-  return isLoggedIn ? (
-    <Navigate to="/dashboard/home" />
-  ) : (
-    <Navigate to="/beranda" />
-  );
+  return isLoggedIn ? <Navigate to="/beranda" /> : <Navigate to="/login" />;
 };
 
 const PrivateRoute = () => {

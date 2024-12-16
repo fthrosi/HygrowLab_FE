@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import axios from 'axios';
+
 export default function Tanaman() {
   const [plant, setPlant] = useState([]); // State untuk menyimpan data user
   const [loading, setLoading] = useState(true); // State untuk loading
@@ -55,8 +56,6 @@ export default function Tanaman() {
       }
     }, []);
     const onSubmit = async (data) => {
-      const newPlant = { ...data, id: Date.now() }; // Tambahkan ID sementara
-      setPlant((prevPlants) => [...prevPlants, newPlant]);
       try {
         // Kirim data ke backend Express
         const response = await fetch('http://localhost:4000/tanaman/tanaman', {
@@ -70,24 +69,19 @@ export default function Tanaman() {
         const result = await response.json();
 
         if (response.ok) {
-          setShow(false); // Menampilkan pesan sukses
-          setPlant((prevPlants) =>
-            prevPlants.map((plant) =>
-              plant.id === newPlant.id ? { ...newPlant, id: result.id } : plant
-            )
-          );
+          setShow(false);
+          navigate('/detailtanaman');
         } else {
           alert(result.error); // Menampilkan pesan error jika ada
         }
       } catch (error) {
         console.error('Error:', error);
-        setPlant((prevPlants) =>
-          prevPlants.filter((plant) => plant.id !== newPlant.id)
-        );
+
         alert('Terjadi kesalahan saat mengirim data');
       }
       // Tutup modal setelah submit
     };
+
     return (
       <>
         <div className="w-full h-full  flex justify-center items-center   fixed top-0 left-0 bg-[rgba(0,0,0,0.5)]">
@@ -154,7 +148,34 @@ export default function Tanaman() {
   const hanleClick = () => {
     navigate('/detailtanaman');
   };
+  // const handleButtonClick = async (id, e) => {
+  //   e.stopPropagation(); // Menghentikan propagasi event ke elemen induk
+  //   try {
+  //     // Kirim data ke backend Express
+  //     const response = await fetch(
+  //       `http://localhost:4000/tanaman/tanaman/${id}`,
+  //       {
+  //         method: 'DELETE',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify(data),
+  //       }
+  //     );
 
+  //     const result = await response.json();
+
+  //     if (response.ok) {
+  //       setShow(false);
+  //     } else {
+  //       alert(result.error); // Menampilkan pesan error jika ada
+  //     }
+  //   } catch (error) {
+  //     console.error('Error:', error);
+
+  //     alert('Terjadi kesalahan saat mengirim data');
+  //   }
+  // };
   console.log(plant);
 
   // Tampilkan loading atau error jika ada
@@ -188,7 +209,9 @@ export default function Tanaman() {
                       backgroundImage: `url("/assets/images/foto.png")`,
                     }}>
                     <div className="flex justify-end">
-                      <div className="w-[26px] h-[26px] rounded-full bg-off-white flex justify-center items-center">
+                      <div
+                        // onClick={handleButtonClick(plants.id)}
+                        className="w-[26px] h-[26px] rounded-full bg-off-white flex justify-center items-center">
                         <img src="assets/icons/Group.png" alt="icon" />
                       </div>
                     </div>
