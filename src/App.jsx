@@ -12,6 +12,7 @@ import Tanaman from './components/tanaman';
 import Nutrisi from './components/nutrisi';
 import DetailTanaman from './components/detailTanaman';
 import './App.css';
+import Profile from './components/profile';
 
 function App() {
   return (
