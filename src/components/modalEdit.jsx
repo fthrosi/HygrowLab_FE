@@ -1,8 +1,13 @@
-export default function ModalEdit({editData,handleChange,handleEdit,tutup}) {
-    const handleSubmit = (e) => {
-        e.preventDefault(); 
-        handleEdit(editData); 
-     };
+export default function ModalEdit({
+  editData,
+  handleChange,
+  handleEdit,
+  tutup,
+}) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleEdit(editData);
+  };
   return (
     <div className="w-full h-full flex justify-center items-center   fixed top-0 left-0 bg-[rgba(0,0,0,0.5)] z-50">
       <div className="w-[550px] bg-white rounded-md">
@@ -20,21 +25,20 @@ export default function ModalEdit({editData,handleChange,handleEdit,tutup}) {
                 type="number"
                 name="tinggi_Tanaman"
                 onChange={handleChange}
-                value={editData.tinggiTanaman}
+                value={editData.tinggi_Tanaman}
                 placeholder="Masukkan nama tanaman"
               />
             </div>
             <label htmlFor="" className="nunito font-bold text-[18px] ">
               Catatan Tanam
             </label>
-            <div className="w-full border nunito mt-2 ">
-              <textarea
-                className="w-full h-40 border-2 border-gray-200 mt-2 rounded-md bg-off-white"
-                onChange={handleChange}
-                value={editData.note}
-                name="note"
-              />
-            </div>
+
+            <textarea
+              className="w-full h-40 border-2 border-gray-200 mt-2 rounded-md bg-off-white p-2"
+              onChange={handleChange}
+              value={editData.note}
+              name="note"
+            />
             <div className="w-full flex justify-end gap-3">
               <button
                 className="bg-[rgb(16,185,129)] py-3 px-14 rounded-xl mt-5 nunito text-white  "

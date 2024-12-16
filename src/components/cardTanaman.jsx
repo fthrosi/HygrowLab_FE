@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-export default function CardTanaman({ handleClick, item,onDelete }) {
+export default function CardTanaman({ handleClick, item, onDelete }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -18,16 +18,18 @@ export default function CardTanaman({ handleClick, item,onDelete }) {
       setShowDropdown(false);
     }
   };
-
+  function capitalizeWords(string) {
+    return string
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
   useEffect(() => {
-    // Tambahkan event listener saat dropdown terbuka
     if (showDropdown) {
       document.addEventListener("mousedown", handleOutsideClick);
     } else {
       document.removeEventListener("mousedown", handleOutsideClick);
     }
-
-    // Cleanup event listener saat komponen unmount atau state berubah
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
@@ -40,8 +42,14 @@ export default function CardTanaman({ handleClick, item,onDelete }) {
     >
       <div className="h-[60%]" onClick={handleClick}>
         <div
-          className="h-full bg-cover p-1"
-          style={{ backgroundImage: `url("/assets/images/foto.png")` }}
+          className="h-full bg-cover p-1 overflow-hidden rounded-t-md drop-shadow-sm"
+          style={{
+            backgroundImage: item.foto
+              ? `url(http://localhost:4000/${item.foto})`
+              : `url(/assets/images/belumadafoto.png)`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         >
           <div className="flex justify-end relative">
             <div
@@ -68,12 +76,12 @@ export default function CardTanaman({ handleClick, item,onDelete }) {
         </div>
         <div className="px-3 mt-3">
           <h1 className="text-primary text-[clamp(1rem,5vw,1.5rem)]">
-            {item.plant_name}
+            {item.plant_list_name}
           </h1>
         </div>
         <div className="px-3 mt-1.5">
           <h1 className="font-semibold text-[clamp(1.15rem,5.75vw,1.6rem)]">
-            {item.plant_list_name}
+            {capitalizeWords(item.plant_name)}
           </h1>
         </div>
         <div className="px-3 mt-1.5">

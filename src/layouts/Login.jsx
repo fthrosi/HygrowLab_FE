@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../api/auth';
+import { toast } from 'sonner';
 
 export default function Login() {
   const { setIsLoggedIn } = useAuth();
@@ -11,14 +12,17 @@ export default function Login() {
   const [error, setError] = useState('');
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault();
     try {
       const data = await loginUser(email, password); 
       localStorage.setItem('access_token', data.accessToken);
-      setIsLoggedIn(true); // Set login status in the context
-      navigate('/home'); // Navigate to home page after successful login
+      setIsLoggedIn(true);
+      toast.success("Login Berhasil")
+      setTimeout(() => {
+        navigate('/home');
+      }, 3000);
     } catch (error) {
-      setError('Login gagal. Coba lagi.');
+      toast.error("Login Gagal")
     }
   };
 

@@ -20,3 +20,12 @@ export const registerUser = async (formData) => {
         throw error;
     }
 };
+
+export const logoutUser = async () =>{
+    try {
+        const response = await axiosInstance.put('/auth/logout');
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}

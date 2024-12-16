@@ -13,7 +13,7 @@ export default function Beranda() {
             dengan <span className="text-primary">Hygrowlab</span>
           </p>
           <div className="md:mt-2 mt-2">
-            <Link className="bg-primary text-white lg:text-[1rem] xl:px-[1.875rem] xl:py-5 px-[0.5rem] py-[0.5rem] md:px-[0.8rem] md:py-[0.8rem] rounded-full xl:text-lg font-medium text-[clamp(0.8rem,4vw,1.1rem)] md:text-[2.08vw]">
+            <Link to={"/login"} className="bg-primary text-white lg:text-[1rem] xl:px-[1.875rem] xl:py-5 px-[0.5rem] py-[0.5rem] md:px-[0.8rem] md:py-[0.8rem] rounded-full xl:text-lg font-medium text-[clamp(0.8rem,4vw,1.1rem)] md:text-[2.08vw]">
               Hitung Nutrisi
             </Link>
           </div>
@@ -101,7 +101,7 @@ export default function Beranda() {
           </p>
           <div className="lg:mt-3 flex xl:justify-start">
             <Link
-              to="tentangkami"
+              to="/tentangkami"
               className="bg-primary text-white xl:px-[1.875rem] xl:py-5 px-[0.5rem] py-[0.5rem] md:px-[0.8rem] md:py-[0.8rem] rounded-full xl:text-lg font-medium text-[clamp(0.8rem,4vw,1.1rem)] md:text-[2.08vw]"
             >
               Tentang Kami

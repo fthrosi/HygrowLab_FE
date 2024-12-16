@@ -3,6 +3,7 @@ import { GetTanaman } from "../api/tanaman";
 import { Kalkulasi } from "../api/pencatatan";
 import { tambahCatatan } from "../api/pencatatan";
 import { useSidebar } from "../context/sidebarContext";
+import { toast } from "sonner";
 export default function Nutrisi() {
   const { open } = useSidebar();
   const [show, setShow] = useState(false);
@@ -25,12 +26,12 @@ export default function Nutrisi() {
     try {
       const calc = await Kalkulasi(formData);
       setNutrisi(calc);
-      console.log(calc);
       setShow(true);
+      toast.success("Berhasil Melakukan Kalkulasi")
     } catch (error) {
       setShow(false);
       setNutrisi({ Nut_A: "0", Nut_B: "0" });
-      console.error(error.response?.data || error.message);
+      toast.error("Gagal Melakukan Kalkulasi")
     }
   };
   const handleAdd = async () => {
@@ -43,22 +44,27 @@ export default function Nutrisi() {
     };
     try {
       const add = await tambahCatatan(dataToSave);
-      console.log("datasaved")
+      toast.success("Berhasil Menyimpan Catatan Nutrisi");
+      setFormData({
+        nama: "",
+        volume: "",
+        usia: "",
+      });
+      setNutrisi({ Nut_A: "0", Nut_B: "0" });
+      setShow(!show);
     } catch (error) {
-      console.log(error);
+      toast.error("Gagal Menyimpan Catatan Nutrisi");
     }
   };
   const fetchList = async () => {
     try {
       const data = await GetTanaman();
       setList(data.data);
-      console.log(data);
     } catch (error) {
       console.error("Gagal menampilkan data tanaman", error);
     }
   };
   useEffect(() => {
-    console.log(open);
     fetchList();
   }, []);
   return (

@@ -1,19 +1,43 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import NavbarProfile from "../components/navbarProfile";
 import { SidebarProvider } from "../context/sidebarContext";
 import { useState } from "react";
+import ModalLogout from "../components/modalLogout";
+import { useAuth } from "../context/AuthContext";
+import { logoutUser } from "../api/auth";
+import { toast } from "sonner";
 
 export default function LandingLayout() {
   const [open, setOpen] = useState(false);
+  const [show, setShow] = useState(false);
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+  const tutup = () => {
+    setShow(!show);
+  };
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      toast.success("Logout Berhasil");
+      setTimeout(() => {
+        logout();
+        navigate("/beranda");
+      }, 2000);
+    } catch (error) {
+      console.log
+      toast.error("Logout Gagal");
+    }
+  };
   const toggleSidebar = () => {
     setOpen(!open);
   };
   return (
     <SidebarProvider open={open} toggleSidebar={toggleSidebar}>
       <div className="flex min-h-screen overflow-x-auto">
-        <Sidebar open={open} toggleSidebar={toggleSidebar} />
+        <Sidebar open={open} toggleSidebar={toggleSidebar} tutup={tutup} />
+        {show && <ModalLogout tutup={tutup} handleLogout={handleLogout} />}
         <div
           className={`${
             open ? "flex-shrink-0 lg:flex-shrink" : ""
