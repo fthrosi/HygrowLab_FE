@@ -26,7 +26,7 @@ export default function LandingLayout() {
         navigate('/beranda');
       }, 2000);
     } catch (error) {
-      console.log;
+      console.log(error);
       toast.error('Logout Gagal');
     }
   };

@@ -45,7 +45,7 @@ export default function CardTanaman({ handleClick, item, onDelete }) {
           className="h-full bg-cover p-1 overflow-hidden rounded-t-md drop-shadow-sm"
           style={{
             backgroundImage: item.foto
-              ? `url(http://localhost:4000/${item.foto})`
+              ? `${process.env.BACKEND_PUBLIC_API_URL}/${item.foto})`
               : `url(/assets/images/belumadafoto.png)`,
             backgroundSize: "cover",
             backgroundPosition: "center",

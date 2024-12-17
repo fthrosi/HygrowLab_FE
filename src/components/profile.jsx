@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import ModalUbahPassword from './modalUbahPassword';
 import {
   getData,
   updateData,
@@ -9,314 +7,197 @@ import {
   updateImage,
 } from '../api/profile';
 import { toast } from 'sonner';
-
 export default function Profile() {
-  const navigate = useNavigate();
-
   const [show, setShow] = useState(false);
-  const [dataa, setData] = useState('');
-
-  const id = sessionStorage.getItem('id_user');
-  const { register, handleSubmit, setValue } = useForm({
-    defaultValues: {
-      id: dataa.id,
-      full_name: dataa.full_name,
-      birthday: dataa.birthday,
-      city: dataa.city,
-      email: dataa.email,
-    },
+  const [active, setActive] = useState(false);
+  const [data, setData] = useState({});
+  const [change, setChange] = useState({
+    password: '',
+    newPassword: '',
   });
-
-  const [userId, setUserId] = useState(null);
-
-  const [selectedFile, setSelectedFile] = useState(null);
-  const defaultImage = 'assets/images/orang.png';
-  const profileImage = dataa.foto
-    ? `http://localhost:4000/uploads/${dataa.foto}` // Path dari backend
-    : defaultImage; // Gunakan default jika tidak ada
-
-  useEffect(() => {
-    const id_user = localStorage.getItem('id');
-
-    if (id_user) {
-      setUserId(JSON.parse(id_user)); // Parse jika datanya berupa JSON
-    }
-    // Fungsi untuk mengambil data user dari API
-    if (!userId) return;
-    const fetchUsers = async () => {
-      try {
-        const response = await getData(id_user);
-
-        setData(response.data[0]); // Simpan data ke state
-      } catch (err) {
-        setError(err.message); // Tangkap error
-      }
-    };
-
-    fetchUsers(); // Panggil fungsi saat komponen dimuat
-  }, [userId]);
-
+  const handleEdit = (e) => {
+    const { name, value } = e.target;
+    setChange((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  const edit = (e) => {
+    e.preventDefault();
+    setActive(true);
+  };
   const muncul = () => {
-    setShow(true);
+    setShow(!show);
   };
-  const tutup = () => {
-    setShow(false);
-  };
-  const onSub = async (data) => {
-    const id_user = localStorage.getItem('id');
-
+  const handleUpdate = async (e) => {
+    e.preventDefault();
     try {
-      const result = await updatePassword(id_user, data);
-      console.log('Success:', result);
-      toast.success('Berhasil Mengubah Password');
-      setShow(false);
+      await updateData(data);
+      fetchData();
+      setActive(false);
+      toast.success('Berhasil ubah data profile');
     } catch (error) {
-      if (error.response) {
-        // Respons dari server dengan status error
-        console.error('Server Error:', error.response.data);
-        toast.error('Gagal Mengubah Password');
-      } else {
-        // Kesalahan lainnya (jaringan, timeout, dll.)
-        console.error('Error:', error.message);
-        alert('Terjadi kesalahan jaringan');
-      }
+      toast.error('Gagal update data profile');
     }
   };
-
-  const Open = () => {
-    return (
-      <>
-        <div className="w-full h-full  flex justify-center items-center   fixed top-0 left-0 bg-[rgba(0,0,0,0.5)]">
-          <div className="xl:w-[550px] xl:h-[370px] w-[93%] max-w-[450px] md:max-w-[500px]  bg-white rounded-md">
-            <div className="xl:px-8 xl:py-8 px-5 py-5 ">
-              <h1 className="nunito xl:text-[25px] md:text-[20px] font-bold text-center mb-6">
-                Silahkan Ganti Password Anda
-              </h1>
-              <form action="" onSubmit={handleSubmit(onSub)} className="w-full">
-                <input
-                  type="hidden"
-                  value={dataa.password}
-                  {...register('oldPass1')}
-                />
-                <label
-                  htmlFor=""
-                  className="nunito font-bold text-[13px] md:text-[16px] xl:text-[18px]">
-                  Password Lama
-                </label>
-                <div className="w-full border nunito mt-2 ">
-                  <input
-                    className="w-full md:px-4 md:py-3 px-2 py-2 text-[13px]  md:text-[15px]"
-                    type="password"
-                    placeholder="Masukkan Password Lama"
-                    {...register('oldPass2')}
-                  />
-                </div>
-                <label
-                  htmlFor=""
-                  className="nunito font-bold text-[13px] md:text-[16px] xl:text-[18px] ">
-                  Password Baru
-                </label>
-                <div className="w-full border nunito mt-2 ">
-                  <input
-                    className="w-full md:px-4 md:py-3 px-2 py-2 text-[13px]  md:text-[15px]"
-                    type="password"
-                    placeholder="Masukkan Password Baru"
-                    {...register('newPass')}
-                  />
-                </div>
-                <div className="w-full flex justify-end gap-3">
-                  <button
-                    className="bg-[rgb(16,185,129)] 2xl:py-3 2xl:px-14 xl:py-3 xl:px-9 px-5 py-2 md:px-7  text-[14px] rounded-xl mt-5 nunito text-white  "
-                    type="submit">
-                    Simpan
-                  </button>
-                  <button
-                    onClick={tutup}
-                    className=" bg-red-500 2xl:py-3 2xl:px-14 xl:py-3 xl:px-9  px-5 py-2 md:px-7  text-[14px] rounded-xl mt-5 nunito text-white  ">
-                    Batal
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  };
-
-  const onSubmit = async (data) => {
-    const id_user = localStorage.getItem('id');
-
+  const fetchData = async () => {
     try {
-      const result = await updateData(id_user, data);
-      console.log('Success:', result);
-      toast.success('Berhasil Mengupdate Data');
+      const response = await getData();
+      const data = response.data;
+      setData(data);
     } catch (error) {
-      if (error.response) {
-        // Respons dari server dengan status error
-        console.error('Server Error:', error.response.data);
-        toast.error('Gagal Mengupdate Data');
-      } else {
-        // Kesalahan lainnya (jaringan, timeout, dll.)
-        console.error('Error:', error.message);
-        alert('Terjadi kesalahan jaringan');
-      }
+      console.error('Gagal menampilkan data', error);
     }
   };
-
+  console.log(data);
+  const handleUpdatePass = async () => {
+    try {
+      await updatePassword(change);
+      muncul();
+      setChange({ password: '', newPassword: '' });
+      toast.success('Berhasil Update Password');
+    } catch (error) {
+      console.log(error);
+      const errorMessage =
+        error.response?.data?.error || 'Gagal Update Password';
+      toast.error(errorMessage);
+    }
+  };
   useEffect(() => {
-    if (dataa) {
-      setValue('id', dataa.id);
-      setValue('full_name', dataa.full_name);
-      setValue('birthday', formatDate(dataa.birthday));
-      setValue('city', dataa.city);
-      setValue('email', dataa.email);
-    }
-  }, [dataa, setValue]);
-  const formatDate = (dateString) => {
-    const date = new Date(dateString); // Ubah ke objek Date
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Bulan di JavaScript 0-indexed
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`; // Formatkan ke YYYY-MM-DD
+    fetchData();
+  }, []);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
-
-  // Fungsi untuk menangani pemilihan file
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      handleUpload(file); // Langsung panggil handleUpload dengan file
-    } else {
-      toast.error('Tidak Ada File Yang Dipilih');
-    }
-  };
-  // Fungsi untuk menangani pengunggahan foto
-  const handleUpload = async (file) => {
-    if (!file) {
-      alert('Pilih file terlebih dahulu!');
-      return;
-    }
-    const id_user = localStorage.getItem('id');
+  const handleFoto = async (file) => {
     try {
       const formData = new FormData();
-      formData.append('file', file);
-      const result = await updateImage(id_user, formData);
-
-      toast.success('Berhasil Mengupdate Gambar');
-      window.location.reload();
-      return result;
+      formData.append('foto', file);
+      console.log(file, formData.foto);
+      const respons = await updateImage(formData);
+      fetchData();
+      toast.success('Berhasil Mengubah Foto');
+      return respons;
     } catch (error) {
-      console.error('Gagal mengunggah foto:', error);
-      toast.error('Gagal Mengupdate Gambar');
-    } finally {
-      setSelectedFile(null); // Reset file setelah diunggah
+      toast.error('Gagal Ubah Foto');
     }
   };
-
   return (
-    <>
-      {show && <Open />}
-
+    <div className="px-2 md:px-5">
+      {show && (
+        <ModalUbahPassword
+          muncul={muncul}
+          handleEdit={handleEdit}
+          change={change}
+          handleUpdatePass={handleUpdatePass}
+        />
+      )}
       <div className="w-full   py-9 flex flex-col gap-3 ">
         <h1 className="nunito text-[20px] sm:text-[24px] md:text-[26px] font-bold">
           Profil
         </h1>
-        <div className="w-full flex sm:items-center  flex-col lg:flex-row lg:justify-between mt-4 ">
-          <div className="w-full sm:max-w-[620px] xl:max-w-[700px]     lg:w-[39%]  bg-white lg:order-2  flex flex-col  rounded-lg items-center">
+        <div className="w-full flex sm:items-center flex-col lg:flex-row gap-5 mt-4">
+          <div className="w-full lg:w-[50%]  bg-white lg:order-2  flex flex-col  rounded-lg items-center">
             <div className="py-8 lg:py-14">
               <div className="w-[200px] h-[200px] lg:w-[270px] lg:h-[270px] rounded-full   ">
                 <img
                   className="w-full h-full rounded-full "
-                  src={profileImage}
+                  src={
+                    data.newFoto
+                      ? `${process.env.BACKEND_PUBLIC_API_URL}/${data.newFoto}`
+                      : '/assets/images/orang.png'
+                  }
                   alt=""
                 />
               </div>
               <div className="w-full flex flex-col items-center lg:flex-row gap-5 mt-7">
-                <div
+                <button
                   onClick={muncul}
                   className=" font-normal button text-center py-2 px-5 nunito text-[13px]  bg-primary text-white rounded-[0.438rem]    hover:cursor-pointer">
                   Ubah Password
-                </div>
-                <div
-                  onClick={() => document.getElementById('fileInput').click()} // Trigger input file saat tombol diklik
-                  className="font-normal button text-center py-2 px-5 nunito text-[13px] bg-primary text-white rounded-[0.438rem] hover:cursor-pointer">
+                </button>
+                <button
+                  className="font-normal button text-center py-2 px-5 nunito text-[13px] bg-primary text-white rounded-[0.438rem] hover:cursor-pointer"
+                  onClick={() => document.getElementById('profil').click()}>
                   Ganti foto profil
-                </div>
-
-                {/* Input file untuk memilih gambar */}
+                </button>
                 <input
-                  id="fileInput"
+                  id="profil"
                   type="file"
+                  className="w-full box-border hidden"
+                  onChange={(event) => {
+                    const file = event.target.files[0];
+                    handleFoto(file);
+                  }}
                   accept="image/*"
-                  style={{ display: 'none' }} // Menyembunyikan input file
-                  onChange={handleFileChange}
                 />
-
-                {/* Tombol untuk mengunggah foto */}
-                {/* {selectedFile && (
-                  <button
-                    onClick={handleUpload}
-                    className="font-normal button text-center py-2 px-5 nunito text-[13px] bg-primary text-white rounded-[0.438rem] hover:cursor-pointer">
-                    Update Foto
-                  </button>
-                )} */}
               </div>
             </div>
           </div>
-          <div className="w-full mt-6 lg:mt-0  bg-white sm:max-w-[620px] lg:max-w-[700px] 2xl:max-w-[800px] rounded-lg  lg:w-[59%]  lg:order-1 flex items-center ">
+          <div className="w-full mt-6 lg:mt-0  bg-white rounded-lg  lg:w-[50%]  lg:order-1 flex items-center ">
             <div className="p-5 py-8">
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <label htmlFor="" className="nunito font-bold">
-                  Nama Lengkap
-                </label>
+              <form onSubmit={handleUpdate}>
+                <label className="nunito font-bold">Nama Lengkap</label>
                 <input
+                  name="full_name"
                   type="text"
-                  defaultValue={dataa.full_name}
-                  {...register('full_name')}
-                  className="w-full nunito  mt-1 py-2 px-2.5 mb-4 bg-gray-50"
+                  value={data.full_name || ''}
+                  onChange={handleChange}
+                  disabled={!active}
+                  className="w-full mt-1 py-2 px-2.5 mb-4 bg-gray-50"
                 />
-                <label htmlFor="" className="nunito font-bold ">
-                  Tanggal Lahir
-                </label>
+                <label className="nunito font-bold">Tanggal Lahir</label>
                 <input
                   type="date"
-                  defaultValue={
-                    dataa.birthday ? formatDate(dataa.birthday) : ''
-                  }
-                  {...register('birthday')}
-                  className="w-full  mt-1 nunito py-2 px-2.5 mb-4 bg-gray-50"
+                  name="tanggal"
+                  value={data.tanggal || ''}
+                  onChange={handleChange}
+                  disabled={!active}
+                  className="w-full mt-1 py-2 px-2.5 mb-4 bg-gray-50"
                 />
-                <label htmlFor="" className="nunito font-bold ">
-                  Kota Domisili
-                </label>
+                <label className="nunito font-bold">Kota Domisili</label>
                 <input
                   type="text"
-                  defaultValue={dataa.city}
-                  {...register('city')}
-                  placeholder="Masukkan Kota Domisili"
-                  className="w-full nunito mt-1 py-2 px-2.5 mb-4 bg-gray-50"
+                  name="city"
+                  value={data.city || ''}
+                  onChange={handleChange}
+                  disabled={!active}
+                  className="w-full mt-1 py-2 px-2.5 mb-4 bg-gray-50"
                 />
-                <label htmlFor="" className="nunito font-bold ">
-                  Email
-                </label>
+                <label className="nunito font-bold">Email</label>
                 <input
                   type="email"
-                  defaultValue={dataa.email}
-                  {...register('email')}
-                  className="w-full  mt-1 py-2 px-2.5 bg-gray-50"
+                  name="email"
+                  value={data.email || ''}
+                  onChange={handleChange}
+                  disabled={!active}
+                  className="w-full mt-1 py-2 px-2.5 bg-gray-50"
                 />
-                <div className="w-full flex justify-end">
-                  <input
-                    className=" font-normal button text-center py-1.5 px-10 nunito text-[14px]  bg-primary text-white rounded-[0.438rem] mt-7    hover:cursor-pointer"
-                    type="submit"
-                    value="Simpan"
-                  />
+                <div className="flex justify-end mt-5">
+                  {active ? (
+                    <button
+                      type="submit"
+                      className="bg-primary text-white rounded px-10 py-2">
+                      Simpan
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={edit}
+                      className="bg-primary text-white rounded px-10 py-2">
+                      Edit Profile
+                    </button>
+                  )}
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

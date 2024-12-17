@@ -3,6 +3,7 @@ export default function ModalEdit({
   handleChange,
   handleEdit,
   tutup,
+  errors
 }) {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,7 +30,10 @@ export default function ModalEdit({
                 placeholder="Masukkan nama tanaman"
               />
             </div>
-            <label htmlFor="" className="nunito font-bold text-[18px] ">
+            {errors.tinggi_Tanaman && (
+              <p className="text-red-500 text-sm">{errors.tinggi_Tanaman}</p>
+            )}
+            <label htmlFor="" className="nunito font-bold text-[18px]">
               Catatan Tanam
             </label>
 
@@ -39,6 +43,9 @@ export default function ModalEdit({
               value={editData.note}
               name="note"
             />
+            {errors.note && (
+              <p className="text-red-500 text-sm">{errors.note}</p>
+            )}
             <div className="w-full flex justify-end gap-3">
               <button
                 className="bg-[rgb(16,185,129)] py-3 px-14 rounded-xl mt-5 nunito text-white  "

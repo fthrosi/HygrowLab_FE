@@ -53,8 +53,7 @@ function App() {
 
 const LandingPageOrDashboard = () => {
   const { isLoggedIn } = useAuth();
-
-  return isLoggedIn ? <Navigate to="/beranda" /> : <Navigate to="/login" />;
+  return isLoggedIn ? <Navigate to="/home" /> : <Navigate to="/beranda" />;
 };
 
 const PrivateRoute = () => {
