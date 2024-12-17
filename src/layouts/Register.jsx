@@ -110,7 +110,41 @@ export default function Register() {
                     />
                   </div>
                 </div>
+<<<<<<< HEAD
                 <label className="font-bold mt-2" htmlFor="passwordd">
+=======
+                {errors.email && (
+                  <p className="nunito" style={{ color: 'red' }}>
+                    {errors.email.message}
+                  </p>
+                )}
+                <label className="font-bold mt-3" htmlFor="email">
+                  Nama
+                </label>
+                <div className="w-full border-2 border-gray-200 mt-2  ">
+                  <div className="px-4  flex items-center">
+                    <div className="w-[10%]">
+                      <img
+                        className="w-[18px] h-[18px]"
+                        src="assets/images/username.png"
+                        alt=""
+                      />
+                    </div>
+                    <input
+                      className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
+                      type="text"
+                      {...register('nama', { required: 'Nama wajib diisi' })}
+                      placeholder="Masukkan Nama"
+                    />
+                  </div>
+                </div>
+                {errors.nama && (
+                  <p className="nunito" style={{ color: 'red' }}>
+                    {errors.nama.message}
+                  </p>
+                )}
+                <label className="font-bold mt-3" htmlFor="passwordd">
+>>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
                   Password
                 </label>
                 <div className="w-full border-2 border-gray-200 mt-2  ">
@@ -138,7 +172,7 @@ export default function Register() {
                     </p>
                   )} */}
                 </div>
-                <label className="font-bold mt-2" htmlFor="passwordd">
+                <label className="font-bold mt-3" htmlFor="passwordd">
                   Konfirmasi Password
                 </label>
                 <div className="w-full border-2 border-gray-200 mt-2  ">
@@ -167,7 +201,7 @@ export default function Register() {
                   </p>
                 )} */}
                 <input
-                  className="w-full bg-[rgb(16,185,129)] text-white py-2.5 mt-3 rounded-lg hover:cursor-pointer"
+                  className="w-full bg-[rgb(16,185,129)] text-white py-2.5 mt-5 rounded-lg hover:cursor-pointer"
                   type="submit"
                   value="Daftar"
                 />
