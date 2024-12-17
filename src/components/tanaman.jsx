@@ -8,17 +8,15 @@ import { toast } from "sonner";
 export default function Tanaman() {
   const [tanaman, setTanaman] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     jenis_tanaman: "",
     nama_tanaman: "",
     tanggal_tanam: "",
   });
-  
-  // Pagination configuration
+
   const cardsPerPage = 8;
   const totalPages = Math.ceil(tanaman.length / cardsPerPage);
-
-  // Paginate the tanaman data
   const getPaginatedData = () => {
     const startIndex = (currentPage - 1) * cardsPerPage;
     const endIndex = startIndex + cardsPerPage;
@@ -35,14 +33,41 @@ export default function Tanaman() {
 
   const handleTambah = async (e) => {
     e.preventDefault();
-
+    const newErrors = {};
+    if (!formData.jenis_tanaman) {
+      newErrors.jenis_tanaman = "Harap pilih jenis tanaman";
+    }
+    if (!formData.nama_tanaman) {
+      newErrors.nama_tanaman = "Harap isi nama tanaman";
+    }
+    if (!formData.tanggal_tanam) {
+      newErrors.tanggal_tanam = "Harap isi tanggal tanaman";
+    } else {
+      const today = new Date().toISOString().split("T")[0];
+      if (formData.tanggal_tanam > today) {
+        newErrors.tanggal_tanam =
+          "Tanggal tanam tidak boleh lebih dari hari ini";
+      }
+    }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
     try {
       await TambahTanaman(formData);
       setShow(false);
       fetchTanaman();
+      setFormData({
+        jenis_tanaman: "",
+        nama_tanaman: "",
+        tanggal_tanam: "",
+      });
+      setErrors({});
       toast.success("Berhasil Menambah Tanaman");
     } catch (error) {
-      toast.error("Gagal Menambah Tanaman");
+      console.log(error);
+      const errorMessage = error.response?.data?.error || "Gagal Menambah Tanaman";
+      toast.error(errorMessage);
     }
   };
 
@@ -60,31 +85,25 @@ export default function Tanaman() {
     try {
       const data = await GetTanaman();
       setTanaman(data.data);
-      // Reset to first page when data is fetched
       setCurrentPage(1);
     } catch (error) {
-      console.error("Gagal menampilkan data tanaman", error);
+      toast.error("Gagal menampilkan data tanaman");
     }
   };
-  
   const handleDelete = async (plant_id) => {
     try {
       await DeleteTanaman(plant_id);
       fetchTanaman();
-    } catch(error) {
+    } catch (error) {
       console.error("Delete tanaman gagal", error);
     }
   };
-
-  // Pagination handlers
   const goToNextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
-
   const goToPreviousPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
-
   useEffect(() => {
     fetchTanaman();
   }, []);
@@ -97,6 +116,7 @@ export default function Tanaman() {
           handleChange={handleChange}
           handleTambah={handleTambah}
           tutup={tutup}
+          errors={errors}
         />
       )}
       <div className="mt-5 px-2 py-3">
@@ -120,24 +140,24 @@ export default function Tanaman() {
         </div>
       </div>
       <div className="flex justify-center items-center mt-20 space-x-4">
-          <button
-            onClick={goToPreviousPage}
-            disabled={currentPage === 1}
-            className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Previous
-          </button>
-          <span className="text-gray-700">
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            onClick={goToNextPage}
-            disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Next
-          </button>
-        </div>
+        <button
+          onClick={goToPreviousPage}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Previous
+        </button>
+        <span className="text-gray-700">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={goToNextPage}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }

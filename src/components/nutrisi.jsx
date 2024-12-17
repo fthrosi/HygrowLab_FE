@@ -9,6 +9,7 @@ export default function Nutrisi() {
   const [show, setShow] = useState(false);
   const [list, setList] = useState([]);
   const [nutrisi, setNutrisi] = useState([]);
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     nama: "",
     volume: "",
@@ -23,15 +24,34 @@ export default function Nutrisi() {
   };
   const handleKalkulasi = async (e) => {
     e.preventDefault();
+    const newErrors = {};
+
+    if (!formData.nama) {
+      newErrors.nama = "Harap pilih tanaman";
+    }
+
+    if (!formData.volume || formData.volume <= 0) {
+      newErrors.volume = "Volume harus lebih dari 0";
+    }
+
+    if (!formData.usia || formData.usia <= 0) {
+      newErrors.usia = "Usia harus lebih dari 0";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
     try {
       const calc = await Kalkulasi(formData);
       setNutrisi(calc);
       setShow(true);
-      toast.success("Berhasil Melakukan Kalkulasi")
+      toast.success("Berhasil Melakukan Kalkulasi");
     } catch (error) {
+      const errorMessage = error.response?.data?.error || "Gagal Melakukan Kalkulasi";
       setShow(false);
       setNutrisi({ Nut_A: "0", Nut_B: "0" });
-      toast.error("Gagal Melakukan Kalkulasi")
+      toast.error(errorMessage);
     }
   };
   const handleAdd = async () => {
@@ -86,6 +106,7 @@ export default function Nutrisi() {
                   id="namatanaman"
                   onChange={handleChange}
                   value={formData.nama}
+                  required
                 >
                   <option value="">--Pilih Tanaman--</option>
                   {list.map((item) => (
@@ -94,6 +115,9 @@ export default function Nutrisi() {
                     </option>
                   ))}
                 </select>
+                {errors.nama && (
+                  <p className="text-red-500 text-sm">{errors.nama}</p>
+                )}
               </div>
             </div>
             <label className="font-bold mt-5 text-[clamp(0.75rem,5vw,1rem)] lg:text-[clamp(1rem,1.56vw,1.5rem)]">
@@ -109,9 +133,13 @@ export default function Nutrisi() {
                   placeholder="Litter"
                   onChange={handleChange}
                   value={formData.volume}
+                  min="1"
                 />
               </div>
             </div>
+            {errors.volume && (
+              <p className="text-red-500 text-sm">{errors.volume}</p>
+            )}
             <label className="font-bold mt-5 text-[clamp(0.75rem,5vw,1rem)] lg:text-[clamp(1rem,1.56vw,1.5rem)]">
               Usia Tanaman
             </label>
@@ -125,9 +153,11 @@ export default function Nutrisi() {
                   placeholder="Minggu Ke-"
                   onChange={handleChange}
                   value={formData.usia}
+                  min="1"
                 />
               </div>
             </div>
+            {errors.usia && <p className="error-message text-red-500 text-sm">{errors.usia}</p>}
             <div className="w-full flex justify-end mt-5">
               <button
                 className="bg-primary text-white py-2.5 px-2 mt-3 rounded-lg hover:cursor-pointerfont-semibold text-[clamp(0.625rem,3.125vw,0.8rem)] xl:text-[1rem] lg:text-[clamp(0.8rem,1.25vw,1rem)]"
@@ -178,7 +208,10 @@ export default function Nutrisi() {
                 <span className="font-semibold">{nutrisi.Nut_B ?? 0}</span> ML
               </h1>
               <div className={`${show ? "" : "hidden"}`}>
-                <button className="bg-primary rounded-md py-2 font-semibold text-white xl:mt-8 mt-6 px-3" onClick={handleAdd}>
+                <button
+                  className="bg-primary rounded-md py-2 font-semibold text-white xl:mt-8 mt-6 px-3"
+                  onClick={handleAdd}
+                >
                   Simpan
                 </button>
               </div>
