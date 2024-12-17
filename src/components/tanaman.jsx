@@ -87,9 +87,11 @@ export default function Tanaman() {
       setTanaman(data.data);
       setCurrentPage(1);
     } catch (error) {
+      console.log(error)
       toast.error("Gagal menampilkan data tanaman");
     }
   };
+
   const handleDelete = async (plant_id) => {
     try {
       await DeleteTanaman(plant_id);
