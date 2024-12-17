@@ -31,7 +31,7 @@ const Table = ({ columns, data }) => {
   };
 
   return (
-    <table class="table-auto nunito w-full text-start mt-3 ">
+    <table className="table-auto nunito w-full text-start mt-3 ">
       <thead className="border-b-2 border-gray-400">
         <tr>
           {columns.map((col) => (

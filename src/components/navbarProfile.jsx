@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -7,31 +7,7 @@ export default function NavbarProfile() {
   const { setIsLoggedIn } = useAuth();
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState('');
   const navigate = useNavigate();
-  const [userId, setUserId] = useState(null);
-  useEffect(() => {
-    const id_user = sessionStorage.getItem('id_user');
-    if (id_user) {
-      setUserId(JSON.parse(id_user)); // Parse jika datanya berupa JSON
-    }
-    // Fungsi untuk mengambil data user dari API
-    if (!userId) return;
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:4000/profile/user/${userId}`
-        ); // Panggil API
-        setName(response.data.data[0].full_name); // Simpan data ke state
-        setLoading(false); // Matikan loading
-      } catch (err) {
-        setError(err.message); // Tangkap error
-        setLoading(false);
-      }
-    };
-
-    fetchUsers(); // Panggil fungsi saat komponen dimuat
-  }, [userId]);
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -56,22 +32,17 @@ export default function NavbarProfile() {
   //   setIsLoggedIn(false);
   //   navigate('/beranda');
   // };
-
   return (
-        <div className="flex gap-4">
-          <div className="xl:size-[3.125rem] size-[1.5rem] rounded-full bg-white flex justify-center items-center flex-shrink-0">
-            <img src="/assets/icons/settings.png" alt="" />
-          </div>
-          <div className="xl:size-[3.125rem] size-[1.5rem] rounded-full bg-white flex justify-center items-center flex-shrink-0">
-            <img src="/assets/icons/notif.png" alt="" />
-          </div>
-          <div className="xl:size-[3.125rem] size-[1.5rem] rounded-full bg-white flex justify-center items-center">
-            <img
-              src="/assets/icons/avatar.png"
-              alt=""
-              className="rounded-full"
-            />
-          </div>
-        </div>
+    <div className="flex gap-4">
+      <div className="xl:size-[3.125rem] size-[1.5rem] rounded-full bg-white flex justify-center items-center flex-shrink-0">
+        <img src="/assets/icons/settings.png" alt="" />
+      </div>
+      <div className="xl:size-[3.125rem] size-[1.5rem] rounded-full bg-white flex justify-center items-center flex-shrink-0">
+        <img src="/assets/icons/notif.png" alt="" />
+      </div>
+      <div className="xl:size-[3.125rem] size-[1.5rem] rounded-full bg-white flex justify-center items-center">
+        <img src="/assets/icons/avatar.png" alt="" className="rounded-full" />
+      </div>
+    </div>
   );
 }
