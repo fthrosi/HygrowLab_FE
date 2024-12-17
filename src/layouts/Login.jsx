@@ -21,23 +21,8 @@ export default function Login() {
       console.log(data);
       toast.success('Login Berhasil');
       setTimeout(() => {
-<<<<<<< HEAD
         navigate('/home');
       }, 3000);
-=======
-        setLoading(false); // Hentikan loading
-        setIsLoggedIn(true);
-        navigate('/home'); // Navigasi ke halaman lain
-      }, 1000);
-      // const array = Object.values(response.data);
-      // const { idUser } = array[1].data.id;
-      sessionStorage.setItem(
-        'id_user',
-        JSON.stringify(response.data.data.data.id)
-      );
-      // const sesi = sessionStorage.getItem('id_user');
-      // console.log('User ID:', sesi); // Simpan user ID jika diperlukan
->>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
     } catch (error) {
       toast.error('Login Gagal');
     }
@@ -114,7 +99,6 @@ export default function Login() {
                     />
                   </div>
                 </div>
-                {/* {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>} */}
                 <input
                   className="w-full bg-[rgb(16,185,129)] text-white py-2.5 mt-3 rounded-lg hover:cursor-pointer"
                   type="submit"

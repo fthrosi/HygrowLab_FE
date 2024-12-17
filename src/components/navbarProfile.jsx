@@ -58,7 +58,6 @@ export default function NavbarProfile() {
   // };
 
   return (
-<<<<<<< HEAD
         <div className="flex gap-4">
           <div className="xl:size-[3.125rem] size-[1.5rem] rounded-full bg-white flex justify-center items-center flex-shrink-0">
             <img src="/assets/icons/settings.png" alt="" />
@@ -67,35 +66,12 @@ export default function NavbarProfile() {
             <img src="/assets/icons/notif.png" alt="" />
           </div>
           <div className="xl:size-[3.125rem] size-[1.5rem] rounded-full bg-white flex justify-center items-center">
-=======
-    <div className="py-[0.625rem] px-[2rem] w-full  flex justify-end rounded-md">
-      <div className="flex gap-4 items-center">
-        <div
-          onClick={handleLogout}
-          className="size-[50px] rounded-full bg-off-white flex justify-center items-center hover:cursor-pointer">
-          <img src="/assets/icons/settings.png" alt="" />
-        </div>
-        <div className="size-[50px] rounded-full bg-off-white flex justify-center items-center">
-          <img src="/assets/icons/notif.png" alt="" />
-        </div>
-        <Link to={'/profile'}>
-          <div className="size-[50px] rounded-full bg-off-white flex justify-center items-center">
->>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
             <img
               src="/assets/icons/avatar.png"
               alt=""
               className="rounded-full"
             />
           </div>
-<<<<<<< HEAD
         </div>
-=======
-        </Link>
-        <h1 className="text-[25px] nunito font-bold">
-          Selamat Datang, <span className="text-[rgb(16,185,129)]">{name}</span>
-        </h1>
-      </div>
-    </div>
->>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
   );
 }

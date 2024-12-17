@@ -34,7 +34,6 @@ export const ubahFoto = async (id,data) => {
         });
         return response.data;
     } catch (error) {
-        console.error("Gagal Menampilkan Data", error);
         throw error;
     }
 }

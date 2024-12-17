@@ -8,6 +8,7 @@ export default function Tanaman() {
   const [tab, setTab] = useState(1);
   const [week, setWeek] = useState([]);
   const [show, setShow] = useState(false);
+  const [errors, setErrors] = useState({});
   const [editData, seteditData] = useState({
     tinggi_Tanaman: "",
     note: "",
@@ -23,11 +24,23 @@ export default function Tanaman() {
     setShow(!show);
   };
   const handleEdit = async (editData) => {
+    const newErrors = {};
+    if (!editData.tinggi_Tanaman) {
+      newErrors.tinggi_Tanaman = "Tinggi Tanaman Harus Diisi";
+    }
+    if (!editData.note) {
+      newErrors.note = "Note Harus Diisi";
+    }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
     try {
-      console.log("Editing data:", currentWeek.id, editData);
       await editCatatan(currentWeek.id, editData);
       fetchWeek();
       tutup();
+      seteditData({ tinggi_Tanaman: "", note: "" });
+      setErrors({})
       toast.success("Berhasil Edit Catatan");
     } catch (error) {
       toast.error("Gagal Edit Catatan");
@@ -84,6 +97,7 @@ export default function Tanaman() {
             handleChange={handleChange}
             handleEdit={handleEdit}
             tutup={tutup}
+            errors={errors}
           />
         )}
         <div className="bg-white rounded-md shadow-lg">
@@ -180,7 +194,7 @@ export default function Tanaman() {
             </div>
             <div className="flex flex-col xl:w-2/5 order-1 md:order-2 2xl:items-end items-center md:justify-center">
               <div>
-                <div className="xl:w-[35rem] 2xl:h-[30rem] 2xl:w-[35vw] xl:h-[23rem] flex-shrink-0">
+                <div className="xl:w-[28rem] 2xl:h-[30rem] 2xl:w-[35vw] xl:h-[23rem] flex-shrink-0">
                   <img
                     src={
                       currentWeek?.foto

@@ -25,7 +25,7 @@ export const registerUser = async (formData) => {
 
 export const logoutUser = async () => {
   try {
-    const response = await axiosInstance.get('/auth/logout');
+    const response = await axiosInstance.put('/auth/logout');
     return response.data;
   } catch (error) {
     throw error;
