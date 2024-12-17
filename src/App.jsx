@@ -1,5 +1,11 @@
-import { BrowserRouter, Route, Routes, Navigate, Outlet } from 'react-router-dom';
-import AuthProvider, { useAuth } from './context/AuthContext';  // Correct import
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  Navigate,
+  Outlet,
+} from 'react-router-dom';
+import AuthProvider, { useAuth } from './context/AuthContext'; // Correct import
 import Beranda from './components/beranda';
 import LandingLayout from './layouts/Landing';
 import TentangKami from './components/tentangKami';
@@ -14,12 +20,13 @@ import DetailTanaman from './components/detailTanaman';
 import { Toaster } from 'sonner';
 import './App.css';
 import Profile from './components/profile';
+import 'react-calendar/dist/Calendar.css';
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-      <Toaster richColors position='top-center'/>
+        <Toaster richColors position="top-center" />
         <Routes>
           <Route path="/" element={<LandingPageOrDashboard />} />
           <Route path="/login" element={<Login />} />
@@ -31,10 +38,11 @@ function App() {
           </Route>
           <Route element={<PrivateRoute />}>
             <Route element={<DashboardLayout />}>
-              <Route path="/home" element={<DashboardHome/>} />
+              <Route path="/home" element={<DashboardHome />} />
               <Route path="/tanaman" element={<Tanaman />} />
-              <Route path="/nutrisi" element={<Nutrisi/>} />
+              <Route path="/nutrisi" element={<Nutrisi />} />
               <Route path="/detailtanaman/:id" element={<DetailTanaman />} />
+              <Route path="/profile" element={<Profile />} />
             </Route>
           </Route>
         </Routes>
@@ -45,7 +53,11 @@ function App() {
 
 const LandingPageOrDashboard = () => {
   const { isLoggedIn } = useAuth();
+<<<<<<< HEAD
   return isLoggedIn ? <Navigate to="/home" /> : <Navigate to="/beranda" />;
+=======
+  return isLoggedIn ? <Navigate to="/beranda" /> : <Navigate to="/login" />;
+>>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
 };
 
 const PrivateRoute = () => {

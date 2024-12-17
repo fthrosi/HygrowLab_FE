@@ -1,12 +1,10 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../api/auth';
 
 export default function Register() {
   const [formData, setFormData] = useState({
     fullname: '',
-    date: '',
-    CITY: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -23,25 +21,23 @@ export default function Register() {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-        alert('Passwords do not match!');
-        return;
+      alert('Passwords do not match!');
+      return;
     }
 
     const formattedData = {
-        fullName: formData.fullname,
-        email: formData.email,
-        password: formData.password,
-        city: formData.CITY,
-        birthDate: formData.date,
+      fullName: formData.fullname,
+      email: formData.email,
+      password: formData.password,
     };
 
     try {
-        await registerUser(formattedData);
-        navigate('/login');
+      await registerUser(formattedData);
+      navigate('/login');
     } catch (error) {
-        console.error("Registrasi gagal:", error.response?.data || error.message);
+      console.error('Registrasi gagal:', error.response?.data || error.message);
     }
-};
+  };
   return (
     <>
       <div className=" flex w-full h-[100vh]   items-center justify-center ">
@@ -90,52 +86,7 @@ export default function Register() {
                     />
                   </div>
                 </div>
-                <label className="font-bold">
-                  BirthDay
-                </label>
-                <div className="w-full border-2 border-gray-200 mt-2  ">
-                  <div className="px-4  flex items-center">
-                    <div className="w-[10%]">
-                      <img
-                        className="w-[18px] h-[18px]"
-                        src="assets/images/username.png"
-                        alt=""
-                      />
-                    </div>
-                    <input
-                      className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
-                      type="date"
-                      name="date"
-                      id="date"
-                      value={formData.date}
-                      onChange={handleChange}
-                      placeholder="Input Tanggal Lahir"
-                    />
-                  </div>
-                </div>
-                <label className="font-bold">
-                  City
-                </label>
-                <div className="w-full border-2 border-gray-200 mt-2  ">
-                  <div className="px-4  flex items-center">
-                    <div className="w-[10%]">
-                      <img
-                        className="w-[18px] h-[18px]"
-                        src="assets/images/username.png"
-                        alt=""
-                      />
-                    </div>
-                    <input
-                      className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
-                      type="text"
-                      name="CITY"
-                      id="CITY"
-                      value={formData.CITY}
-                      onChange={handleChange}
-                      placeholder="Inputkan Kota"
-                    />
-                  </div>
-                </div>
+
                 <label className="font-bold mt-2" htmlFor="email">
                   Email
                 </label>
@@ -159,7 +110,41 @@ export default function Register() {
                     />
                   </div>
                 </div>
+<<<<<<< HEAD
                 <label className="font-bold mt-2" htmlFor="passwordd">
+=======
+                {errors.email && (
+                  <p className="nunito" style={{ color: 'red' }}>
+                    {errors.email.message}
+                  </p>
+                )}
+                <label className="font-bold mt-3" htmlFor="email">
+                  Nama
+                </label>
+                <div className="w-full border-2 border-gray-200 mt-2  ">
+                  <div className="px-4  flex items-center">
+                    <div className="w-[10%]">
+                      <img
+                        className="w-[18px] h-[18px]"
+                        src="assets/images/username.png"
+                        alt=""
+                      />
+                    </div>
+                    <input
+                      className="w-[90%] px-2 py-2 focus:outline-none focus:ring-0 focus:border-transparent"
+                      type="text"
+                      {...register('nama', { required: 'Nama wajib diisi' })}
+                      placeholder="Masukkan Nama"
+                    />
+                  </div>
+                </div>
+                {errors.nama && (
+                  <p className="nunito" style={{ color: 'red' }}>
+                    {errors.nama.message}
+                  </p>
+                )}
+                <label className="font-bold mt-3" htmlFor="passwordd">
+>>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
                   Password
                 </label>
                 <div className="w-full border-2 border-gray-200 mt-2  ">
@@ -181,13 +166,13 @@ export default function Register() {
                       placeholder="Masukkan Password"
                     />
                   </div>
-                  {errors.password && (
+                  {/* {errors.password && (
                     <p className="nunito" style={{ color: 'red' }}>
                       {errors.password.message}
                     </p>
-                  )}
+                  )} */}
                 </div>
-                <label className="font-bold mt-2" htmlFor="passwordd">
+                <label className="font-bold mt-3" htmlFor="passwordd">
                   Konfirmasi Password
                 </label>
                 <div className="w-full border-2 border-gray-200 mt-2  ">
@@ -210,13 +195,13 @@ export default function Register() {
                     />
                   </div>
                 </div>
-                {error.confirmPassword && (
+                {/* {error.confirmPassword && (
                   <p className="nunito" style={{ color: 'red' }}>
                     {error.confirmPassword}
                   </p>
-                )}
+                )} */}
                 <input
-                  className="w-full bg-[rgb(16,185,129)] text-white py-2.5 mt-3 rounded-lg hover:cursor-pointer"
+                  className="w-full bg-[rgb(16,185,129)] text-white py-2.5 mt-5 rounded-lg hover:cursor-pointer"
                   type="submit"
                   value="Daftar"
                 />
