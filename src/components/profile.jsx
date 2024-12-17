@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from "react";
-import ModalUbahPassword from "./modalUbahPassword";
-import { getData, updateData, updatePassword,updateImage } from "../api/profile";
-import { toast } from "sonner";
+import React, { useState, useEffect } from 'react';
+import ModalUbahPassword from './modalUbahPassword';
+import {
+  getData,
+  updateData,
+  updatePassword,
+  updateImage,
+} from '../api/profile';
+import { toast } from 'sonner';
 export default function Profile() {
   const [show, setShow] = useState(false);
   const [active, setActive] = useState(false);
   const [data, setData] = useState({});
   const [change, setChange] = useState({
-    password: "",
-    newPassword: "",
+    password: '',
+    newPassword: '',
   });
   const handleEdit = (e) => {
     const { name, value } = e.target;
@@ -30,9 +35,9 @@ export default function Profile() {
       await updateData(data);
       fetchData();
       setActive(false);
-      toast.success("Berhasil ubah data profile");
+      toast.success('Berhasil ubah data profile');
     } catch (error) {
-      toast.error("Gagal update data profile");
+      toast.error('Gagal update data profile');
     }
   };
   const fetchData = async () => {
@@ -41,19 +46,20 @@ export default function Profile() {
       const data = response.data;
       setData(data);
     } catch (error) {
-      console.error("Gagal menampilkan data", error);
+      console.error('Gagal menampilkan data', error);
     }
   };
-  console.log(data)
+  console.log(data);
   const handleUpdatePass = async () => {
     try {
       await updatePassword(change);
       muncul();
-      setChange({ password: "", newPassword: "" });
-      toast.success("Berhasil Update Password");
+      setChange({ password: '', newPassword: '' });
+      toast.success('Berhasil Update Password');
     } catch (error) {
-      console.log(error)
-      const errorMessage = error.response?.data?.error ||"Gagal Update Password";
+      console.log(error);
+      const errorMessage =
+        error.response?.data?.error || 'Gagal Update Password';
       toast.error(errorMessage);
     }
   };
@@ -68,18 +74,18 @@ export default function Profile() {
     }));
   };
   const handleFoto = async (file) => {
-      try {
-        const formData = new FormData();
-        formData.append("foto", file);
-        console.log(file,formData.foto)
-        const respons = await updateImage(formData);
-        fetchData();
-        toast.success("Berhasil Mengubah Foto");
-        return respons;
-      } catch (error) {
-        toast.error("Gagal Ubah Foto");
-      }
-    };
+    try {
+      const formData = new FormData();
+      formData.append('foto', file);
+      console.log(file, formData.foto);
+      const respons = await updateImage(formData);
+      fetchData();
+      toast.success('Berhasil Mengubah Foto');
+      return respons;
+    } catch (error) {
+      toast.error('Gagal Ubah Foto');
+    }
+  };
   return (
     <div className="px-2 md:px-5">
       {show && (
@@ -111,26 +117,24 @@ export default function Profile() {
               <div className="w-full flex flex-col items-center lg:flex-row gap-5 mt-7">
                 <button
                   onClick={muncul}
-                  className=" font-normal button text-center py-2 px-5 nunito text-[13px]  bg-primary text-white rounded-[0.438rem]    hover:cursor-pointer"
-                >
+                  className=" font-normal button text-center py-2 px-5 nunito text-[13px]  bg-primary text-white rounded-[0.438rem]    hover:cursor-pointer">
                   Ubah Password
                 </button>
-                  <button
-                    className="font-normal button text-center py-2 px-5 nunito text-[13px] bg-primary text-white rounded-[0.438rem] hover:cursor-pointer"
-                    onClick={() => document.getElementById("profil").click()}
-                  >
-                    Ganti foto profil
-                  </button>
-                  <input
-                    id="profil"
-                    type="file"
-                    className="w-full box-border hidden"
-                    onChange={(event) => {
-                      const file = event.target.files[0];
-                      handleFoto(file);
-                    }}
-                    accept="image/*"
-                  />
+                <button
+                  className="font-normal button text-center py-2 px-5 nunito text-[13px] bg-primary text-white rounded-[0.438rem] hover:cursor-pointer"
+                  onClick={() => document.getElementById('profil').click()}>
+                  Ganti foto profil
+                </button>
+                <input
+                  id="profil"
+                  type="file"
+                  className="w-full box-border hidden"
+                  onChange={(event) => {
+                    const file = event.target.files[0];
+                    handleFoto(file);
+                  }}
+                  accept="image/*"
+                />
               </div>
             </div>
           </div>
@@ -141,7 +145,7 @@ export default function Profile() {
                 <input
                   name="full_name"
                   type="text"
-                  value={data.full_name || ""}
+                  value={data.full_name || ''}
                   onChange={handleChange}
                   disabled={!active}
                   className="w-full mt-1 py-2 px-2.5 mb-4 bg-gray-50"
@@ -150,7 +154,7 @@ export default function Profile() {
                 <input
                   type="date"
                   name="tanggal"
-                  value={data.tanggal || ""}
+                  value={data.tanggal || ''}
                   onChange={handleChange}
                   disabled={!active}
                   className="w-full mt-1 py-2 px-2.5 mb-4 bg-gray-50"
@@ -159,7 +163,7 @@ export default function Profile() {
                 <input
                   type="text"
                   name="city"
-                  value={data.city || ""}
+                  value={data.city || ''}
                   onChange={handleChange}
                   disabled={!active}
                   className="w-full mt-1 py-2 px-2.5 mb-4 bg-gray-50"
@@ -168,7 +172,7 @@ export default function Profile() {
                 <input
                   type="email"
                   name="email"
-                  value={data.email || ""}
+                  value={data.email || ''}
                   onChange={handleChange}
                   disabled={!active}
                   className="w-full mt-1 py-2 px-2.5 bg-gray-50"
@@ -177,16 +181,14 @@ export default function Profile() {
                   {active ? (
                     <button
                       type="submit"
-                      className="bg-primary text-white rounded px-10 py-2"
-                    >
+                      className="bg-primary text-white rounded px-10 py-2">
                       Simpan
                     </button>
                   ) : (
                     <button
                       type="button"
                       onClick={edit}
-                      className="bg-primary text-white rounded px-10 py-2"
-                    >
+                      className="bg-primary text-white rounded px-10 py-2">
                       Edit Profile
                     </button>
                   )}

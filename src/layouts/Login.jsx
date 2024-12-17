@@ -16,9 +16,7 @@ export default function Login() {
     try {
       const data = await loginUser(email, password);
       localStorage.setItem('access_token', data.accessToken);
-      localStorage.setItem('id', data.id);
       setIsLoggedIn(true);
-      console.log(data);
       toast.success('Login Berhasil');
       setTimeout(() => {
         navigate('/home');

@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { TambahTanaman, GetTanaman, DeleteTanaman } from "../api/tanaman";
-import ModalTambah from "./modalTambahTanaman";
-import CardTanaman from "./cardTanaman";
-import { toast } from "sonner";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { TambahTanaman, GetTanaman, DeleteTanaman } from '../api/tanaman';
+import ModalTambah from './modalTambahTanaman';
+import CardTanaman from './cardTanaman';
+import { toast } from 'sonner';
 
 export default function Tanaman() {
   const [tanaman, setTanaman] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
-    jenis_tanaman: "",
-    nama_tanaman: "",
-    tanggal_tanam: "",
+    jenis_tanaman: '',
+    nama_tanaman: '',
+    tanggal_tanam: '',
   });
 
   const cardsPerPage = 8;
@@ -35,18 +35,18 @@ export default function Tanaman() {
     e.preventDefault();
     const newErrors = {};
     if (!formData.jenis_tanaman) {
-      newErrors.jenis_tanaman = "Harap pilih jenis tanaman";
+      newErrors.jenis_tanaman = 'Harap pilih jenis tanaman';
     }
     if (!formData.nama_tanaman) {
-      newErrors.nama_tanaman = "Harap isi nama tanaman";
+      newErrors.nama_tanaman = 'Harap isi nama tanaman';
     }
     if (!formData.tanggal_tanam) {
-      newErrors.tanggal_tanam = "Harap isi tanggal tanaman";
+      newErrors.tanggal_tanam = 'Harap isi tanggal tanaman';
     } else {
-      const today = new Date().toISOString().split("T")[0];
+      const today = new Date().toISOString().split('T')[0];
       if (formData.tanggal_tanam > today) {
         newErrors.tanggal_tanam =
-          "Tanggal tanam tidak boleh lebih dari hari ini";
+          'Tanggal tanam tidak boleh lebih dari hari ini';
       }
     }
     if (Object.keys(newErrors).length > 0) {
@@ -58,15 +58,16 @@ export default function Tanaman() {
       setShow(false);
       fetchTanaman();
       setFormData({
-        jenis_tanaman: "",
-        nama_tanaman: "",
-        tanggal_tanam: "",
+        jenis_tanaman: '',
+        nama_tanaman: '',
+        tanggal_tanam: '',
       });
       setErrors({});
-      toast.success("Berhasil Menambah Tanaman");
+      toast.success('Berhasil Menambah Tanaman');
     } catch (error) {
       console.log(error);
-      const errorMessage = error.response?.data?.error || "Gagal Menambah Tanaman";
+      const errorMessage =
+        error.response?.data?.error || 'Gagal Menambah Tanaman';
       toast.error(errorMessage);
     }
   };
@@ -87,8 +88,8 @@ export default function Tanaman() {
       setTanaman(data.data);
       setCurrentPage(1);
     } catch (error) {
-      console.log(error)
-      toast.error("Gagal menampilkan data tanaman");
+      console.log(error);
+      toast.error('Gagal menampilkan data tanaman');
     }
   };
 
@@ -97,7 +98,7 @@ export default function Tanaman() {
       await DeleteTanaman(plant_id);
       fetchTanaman();
     } catch (error) {
-      console.error("Delete tanaman gagal", error);
+      console.error('Delete tanaman gagal', error);
     }
   };
   const goToNextPage = () => {
@@ -125,8 +126,7 @@ export default function Tanaman() {
         <div className="flex w-full justify-end px-4">
           <div
             onClick={tutup}
-            className="bg-primary 2xl:rounded-xl nunito text-white 2xl:py-3 2xl:px-6 py-1 px-2 rounded-md text-[clamp(0.75rem,3.75vw,1rem)] hover:cursor-pointer"
-          >
+            className="bg-primary 2xl:rounded-xl nunito text-white 2xl:py-3 2xl:px-6 py-1 px-2 rounded-md text-[clamp(0.75rem,3.75vw,1rem)] hover:cursor-pointer">
             + Tambah Tanaman
           </div>
         </div>
@@ -145,8 +145,7 @@ export default function Tanaman() {
         <button
           onClick={goToPreviousPage}
           disabled={currentPage === 1}
-          className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
-        >
+          className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50 disabled:cursor-not-allowed">
           Previous
         </button>
         <span className="text-gray-700">
@@ -155,8 +154,7 @@ export default function Tanaman() {
         <button
           onClick={goToNextPage}
           disabled={currentPage === totalPages}
-          className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
-        >
+          className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50 disabled:cursor-not-allowed">
           Next
         </button>
       </div>
