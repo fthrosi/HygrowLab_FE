@@ -198,7 +198,7 @@ export default function Tanaman() {
                   <img
                     src={
                       currentWeek?.foto
-                        ? `http://localhost:4000${currentWeek.foto}`
+                        ? `${process.env.BACKEND_PUBLIC_API_URL}${currentWeek.foto}`
                         : "/assets/images/belumadafoto.png"
                     }
                     alt=""
