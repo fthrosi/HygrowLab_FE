@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const BASE_URL = `${process.env.REACT_APP_BACKEND_PUBLIC_API_URL}`;
+
 const axiosInstance = axios.create({
-    baseURL: "https://hygrowlab.noturminesv.my.id", 
+    baseURL: BASE_URL, 
 });
 
 axiosInstance.interceptors.request.use(
