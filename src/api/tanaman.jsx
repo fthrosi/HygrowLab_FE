@@ -35,3 +35,28 @@ export const DeleteTanaman = async (id) =>{
         throw error;
     }
 }
+
+export const GetRecord = async () => {
+    try{
+        const response = await axiosInstance.get(`/profile/record`);
+        return response.data;
+    }catch(error){
+        throw error;
+    }
+}
+export const GetPlants = async () => {
+    try{
+        const response = await axiosInstance.get(`/profile/plants`);
+        return response.data;
+    }catch(error){
+        throw error;
+    }
+}
+export const GetChart = async () => {
+    try{
+        const response = await axiosInstance.get(`/profile/chart`);
+        return response.data;
+    }catch(error){
+        throw error;
+    }
+}

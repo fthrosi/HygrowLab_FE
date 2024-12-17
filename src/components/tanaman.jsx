@@ -86,6 +86,7 @@ export default function Tanaman() {
     try {
       const data = await GetTanaman();
       setTanaman(data.data);
+      console.log(data.data)
       setCurrentPage(1);
     } catch (error) {
       console.log(error);
