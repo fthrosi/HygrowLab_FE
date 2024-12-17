@@ -17,7 +17,7 @@ export default function Dasboard() {
     { name: 'kangkung kolam 3', jenis: 'kangkung', tanggal: '03-09-2024' },
   ];
   return (
-    <div className="w-full xl:h-screen py-9 items-center lg:items-start overflow-hidden flex flex-col gap-9">
+    <div className="w-full xl:max-h-screen py-9 items-center lg:items-start overflow-hidden flex flex-col gap-9 ">
       <div className="w-full flex items-start">
         <h1 className="nunito text-[20px] font-extrabold ">Dashboard</h1>
       </div>
