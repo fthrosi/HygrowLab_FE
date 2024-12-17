@@ -181,11 +181,6 @@ export default function Register() {
                       placeholder="Masukkan Password"
                     />
                   </div>
-                  {errors.password && (
-                    <p className="nunito" style={{ color: 'red' }}>
-                      {errors.password.message}
-                    </p>
-                  )}
                 </div>
                 <label className="font-bold mt-2" htmlFor="passwordd">
                   Konfirmasi Password
@@ -210,11 +205,6 @@ export default function Register() {
                     />
                   </div>
                 </div>
-                {error.confirmPassword && (
-                  <p className="nunito" style={{ color: 'red' }}>
-                    {error.confirmPassword}
-                  </p>
-                )}
                 <input
                   className="w-full bg-[rgb(16,185,129)] text-white py-2.5 mt-3 rounded-lg hover:cursor-pointer"
                   type="submit"
