@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-<<<<<<< HEAD
 
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -17,18 +16,6 @@ export default function Profile() {
   const [show, setShow] = useState(false);
   const [dataa, setData] = useState('');
 
-=======
-import axios from 'axios';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-
-export default function Profile() {
-  const navigate = useNavigate();
-  const [pesan, setPesan] = useState('');
-  const [show, setShow] = useState(false);
-  const [dataa, setData] = useState('');
-  const [showPopup, setShowPopup] = useState(false);
->>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
   const id = sessionStorage.getItem('id_user');
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
@@ -41,7 +28,7 @@ export default function Profile() {
   });
 
   const [userId, setUserId] = useState(null);
-<<<<<<< HEAD
+
   const [selectedFile, setSelectedFile] = useState(null);
   const defaultImage = 'assets/images/orang.png';
   const profileImage = dataa.foto
@@ -50,15 +37,7 @@ export default function Profile() {
 
   useEffect(() => {
     const id_user = localStorage.getItem('id');
-=======
-  // const [selectedFile, setSelectedFile] = useState(null);
-  const defaultImage = 'assets/images/orang.png';
-  const profileImage = dataa.foto
-    ? `http://localhost:4000/foto_profile/${dataa.foto}` // Path dari backend
-    : defaultImage; // Gunakan default jika tidak ada
-  useEffect(() => {
-    const id_user = sessionStorage.getItem('id_user');
->>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
+
     if (id_user) {
       setUserId(JSON.parse(id_user)); // Parse jika datanya berupa JSON
     }
@@ -66,17 +45,9 @@ export default function Profile() {
     if (!userId) return;
     const fetchUsers = async () => {
       try {
-<<<<<<< HEAD
         const response = await getData(id_user);
 
         setData(response.data[0]); // Simpan data ke state
-=======
-        const response = await axios.get(
-          `http://localhost:4000/profile/user/${userId}`
-        ); // Panggil API
-
-        setData(response.data.data[0]); // Simpan data ke state
->>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
       } catch (err) {
         setError(err.message); // Tangkap error
       }
@@ -92,7 +63,6 @@ export default function Profile() {
     setShow(false);
   };
   const onSub = async (data) => {
-<<<<<<< HEAD
     const id_user = localStorage.getItem('id');
 
     try {
@@ -110,67 +80,6 @@ export default function Profile() {
         console.error('Error:', error.message);
         alert('Terjadi kesalahan jaringan');
       }
-=======
-    const id_user = sessionStorage.getItem('id_user');
-
-    // if (!id_user) {
-    //   alert('ID user tidak ditemukan. Silakan login ulang.');
-    //   return;
-    // }
-
-    try {
-      // Kirim data ke backend Express
-      const response = await fetch(
-        `http://localhost:4000/profile/updatepass/${id_user}`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        }
-      );
-
-      // Periksa jika respons bukan JSON
-      let result;
-      try {
-        result = await response.json();
-      } catch (err) {
-        console.error('Respons bukan JSON:', err);
-        alert('Terjadi kesalahan pada server.');
-        return;
-      }
-
-      if (response.ok) {
-        // Navigasi ke profil
-        navigate('/profile');
-
-        // Tampilkan pop-up sukses
-        setShowPopup(true);
-        setPesan('Password berhasil di ganti!');
-
-        // Hilangkan pop-up setelah 3 detik
-        setTimeout(() => {
-          setShowPopup(false);
-        }, 2000);
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
-      } else {
-        // Tampilkan pesan error dari backend
-        setShowPopup(true);
-        setPesan(result.message || 'Gagal mengganti password');
-        setTimeout(() => {
-          setShowPopup(false);
-        }, 3000);
-      }
-    } catch (error) {
-      setShowPopup(true);
-      setPesan(result.message || 'Gagal mengganti password');
-      setTimeout(() => {
-        setShowPopup(false);
-      }, 3000);
->>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
     }
   };
 
@@ -236,7 +145,6 @@ export default function Profile() {
   };
 
   const onSubmit = async (data) => {
-<<<<<<< HEAD
     const id_user = localStorage.getItem('id');
 
     try {
@@ -253,44 +161,6 @@ export default function Profile() {
         console.error('Error:', error.message);
         alert('Terjadi kesalahan jaringan');
       }
-=======
-    const id_user = sessionStorage.getItem('id_user');
-
-    try {
-      // Kirim data ke backend Express
-      const response = await fetch(
-        `http://localhost:4000/profile/user/${id_user}`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        }
-      );
-
-      const result = await response.json();
-
-      if (response.ok) {
-        navigate('/profile');
-
-        // Tampilkan pop-up
-        setShowPopup(true);
-        setPesan('Data Berhasil Disimpan!');
-        // Hilangkan pop-up setelah 2 detik
-        setTimeout(() => {
-          setShowPopup(false);
-        }, 3000); // Menampilkan pesan sukses
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
-      } else {
-        alert(result.error); // Menampilkan pesan error jika ada
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Terjadi kesalahan saat mengirim data');
->>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
     }
   };
 
@@ -317,11 +187,7 @@ export default function Profile() {
     if (file) {
       handleUpload(file); // Langsung panggil handleUpload dengan file
     } else {
-<<<<<<< HEAD
       toast.error('Tidak Ada File Yang Dipilih');
-=======
-      alert('Tidak ada file yang dipilih.');
->>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
     }
   };
   // Fungsi untuk menangani pengunggahan foto
@@ -330,8 +196,6 @@ export default function Profile() {
       alert('Pilih file terlebih dahulu!');
       return;
     }
-
-<<<<<<< HEAD
     const id_user = localStorage.getItem('id');
     try {
       const formData = new FormData();
@@ -344,34 +208,6 @@ export default function Profile() {
     } catch (error) {
       console.error('Gagal mengunggah foto:', error);
       toast.error('Gagal Mengupdate Gambar');
-=======
-    const formData = new FormData();
-    formData.append('file', file);
-    const id_user = sessionStorage.getItem('id_user');
-    try {
-      const response = await axios.patch(
-        `http://localhost:4000/profile/upload/${id_user}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-
-      setShowPopup(true);
-      setPesan('Foto Berhasil Diupdate!');
-      // Hilangkan pop-up setelah 2 detik
-      setTimeout(() => {
-        setShowPopup(false);
-      }, 3000); // Menampilkan pesan sukses
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-    } catch (error) {
-      console.error('Gagal mengunggah foto:', error);
-      alert('Terjadi kesalahan saat mengunggah file.');
->>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
     } finally {
       setSelectedFile(null); // Reset file setelah diunggah
     }
@@ -381,16 +217,6 @@ export default function Profile() {
     <>
       {show && <Open />}
 
-<<<<<<< HEAD
-=======
-      {showPopup && (
-        <div className="fixed inset-0 flex justify-center items-start bg-opacity-50">
-          <div className="bg-[rgb(16,185,129)] text-white py-2 px-4 mt-10 rounded shadow-md">
-            {pesan}
-          </div>
-        </div>
-      )}
->>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
       <div className="w-full   py-9 flex flex-col gap-3 ">
         <h1 className="nunito text-[20px] sm:text-[24px] md:text-[26px] font-bold">
           Profil
@@ -440,10 +266,6 @@ export default function Profile() {
           <div className="w-full mt-6 lg:mt-0  bg-white sm:max-w-[620px] lg:max-w-[700px] 2xl:max-w-[800px] rounded-lg  lg:w-[59%]  lg:order-1 flex items-center ">
             <div className="p-5 py-8">
               <form onSubmit={handleSubmit(onSubmit)}>
-<<<<<<< HEAD
-=======
-                <input type="hidden" value={id} {...register('id')} />
->>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
                 <label htmlFor="" className="nunito font-bold">
                   Nama Lengkap
                 </label>

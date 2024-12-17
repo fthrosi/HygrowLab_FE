@@ -110,9 +110,7 @@ export default function Register() {
                     />
                   </div>
                 </div>
-<<<<<<< HEAD
-                <label className="font-bold mt-2" htmlFor="passwordd">
-=======
+
                 {errors.email && (
                   <p className="nunito" style={{ color: 'red' }}>
                     {errors.email.message}
@@ -144,7 +142,6 @@ export default function Register() {
                   </p>
                 )}
                 <label className="font-bold mt-3" htmlFor="passwordd">
->>>>>>> bad411d4d7ccbaf08ae630e1697975217a50f9c1
                   Password
                 </label>
                 <div className="w-full border-2 border-gray-200 mt-2  ">
