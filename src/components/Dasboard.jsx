@@ -56,13 +56,13 @@ export default function Dasboard() {
     fetchChart();
   }, []);
   const imageMapping = {
-    1: "/assets/images/bayam.svg",
+    4: "/assets/images/bayam.svg",
     2: "/assets/images/kangkung.svg",
-    3: "/assets/images/sawi.svg",
+    1: "/assets/images/sawi.svg",
   };
   console.log(record)
   return (
-    <div className="w-full xl:min-h-screen py-9 px-5 items-center lg:items-start overflow-hidden flex flex-col gap-9">
+    <div className="w-full xl:max-h-screen py-9 px-5 items-center lg:items-start overflow-hidden flex flex-col gap-9">
       <div className="w-full flex items-start">
         <h1 className="nunito text-[20px] font-extrabold">Dashboard</h1>
       </div>
