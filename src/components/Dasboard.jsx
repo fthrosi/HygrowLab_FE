@@ -55,12 +55,13 @@ export default function Dasboard() {
     fetchPlants();
     fetchChart();
   }, []);
+  console.log(chart)
   const imageMapping = {
     4: "/assets/images/bayam.svg",
     2: "/assets/images/kangkung.svg",
     1: "/assets/images/sawi.svg",
   };
-  console.log(record)
+  console.log(record);
   return (
     <div className="w-full xl:max-h-screen py-9 px-5 items-center lg:items-start overflow-hidden flex flex-col gap-9">
       <div className="w-full flex items-start">
@@ -103,24 +104,32 @@ export default function Dasboard() {
             </p>
           </div>
           <div className="w-full h-full flex gap-2">
-            {tanaman.map((item, index) => (
-              <div
-                key={index}
-                className="w-[25%] h-full flex items-center flex-col gap-1"
-              >
-                <img
-                  className="size-20"
-                  src={imageMapping[item[2]] || "/assets/images/default.svg"}
-                  alt=""
-                />
-                <p className="text-[20px] font-semibold text-[rgb(3,2,41)] nunito ">
-                  {item[1]}
-                </p>
-                <p className="text-[20px] font-semibold text-[rgb(3,2,41)] nunito ">
-                  {item[0]}
+            {tanaman.length > 0 ? (
+              tanaman.map((item, index) => (
+                <div
+                  key={index}
+                  className="w-[25%] h-full flex items-center flex-col gap-1"
+                >
+                  <img
+                    className="size-20"
+                    src={imageMapping[item[2]] || "/assets/images/default.svg"}
+                    alt=""
+                  />
+                  <p className="text-[20px] font-semibold text-[rgb(3,2,41)] nunito">
+                    {item[1]}
+                  </p>
+                  <p className="text-[20px] font-semibold text-[rgb(3,2,41)] nunito">
+                    {item[0]}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <p className="text-[20px] font-semibold text-[rgb(3,2,41)] nunito">
+                  Belum Ada Data
                 </p>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>
@@ -131,15 +140,23 @@ export default function Dasboard() {
             <h1 className="nunito text-[23px] font-bold">
               Persentase Jenis Tanaman
             </h1>
-            <div className="flex justify-center">
-              <Chart
-                chartType="PieChart"
-                data={chart}
-                options={options}
-                width={"85%"}
-                className="justify-self-center"
-              />
-            </div>
+            {tanaman.length > 0 ? (
+              <div className="flex justify-center">
+                <Chart
+                  chartType="PieChart"
+                  data={chart}
+                  options={options}
+                  width={"85%"}
+                  className="justify-self-center"
+                />
+              </div>
+            ) : (
+              <div className="w-full h-full flex items-center justify-center mt-10">
+                <p className="text-[20px] font-semibold text-[rgb(3,2,41)] nunito">
+                  Belum Ada Data
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -148,8 +165,17 @@ export default function Dasboard() {
             <h1 className="nunito text-[23px] font-bold">
               Data Pencatatan Terbaru
             </h1>
-            <div className="w-full overflow-x-auto">
-              <Table columns={columns} data={record || []} />
+            <div className="w-full h-full overflow-x-auto">
+              {record.length > 0 ? (
+                <Table columns={columns} data={record || []} />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center mt-10">
+                  <p className="text-[20px] font-semibold text-[rgb(3,2,41)] nunito">
+                    Belum Ada Data
+                  </p>
+                </div>
+              )}
+
               {eror && <p className="text-red-500">{eror}</p>}
             </div>
           </div>
