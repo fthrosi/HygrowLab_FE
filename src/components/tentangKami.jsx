@@ -3,37 +3,37 @@ export default function TentangKami() {
     {
       name: "Andryansah",
       role: "Project Manager",
-      image: "/assets/images/Pio.jpg",
+      image: "/assets/images/rian.png",
       word: "ketika kamu berhenti berharap, kamu berhenti",
     },
     {
       name: "Rahmat Farras",
       role: "Scrumb Master",
-      image: "/assets/images/Pio.jpg",
+      image: "/assets/images/farras.png",
       word: "siapa yang takut gagal, dia tidak akan berhasil",
     },
     {
       name: "Dhea Marezka",
       role: "Hipster",
-      image: "/assets/images/Pio.jpg",
+      image: "/assets/images/dhea.png",
       word: "jangan pernah menyerah, karena menyerah adalah awal dari kegagalan",
     },
     {
       name: "Suci",
       role: "Hipster",
-      image: "/assets/images/Pio.jpg",
+      image: "/assets/images/suci.png",
       word: "kamu tidak akan pernah tahu seberapa kuat kamu",
     },
     {
       name: "Fathur Rosi",
       role: "Hacker",
-      image: "/assets/images/Pio.jpg",
+      image: "/assets/images/rosi.png",
       word: "Babam Babam, Yuhuuuu",
     },
     {
       name: "Joan Carolus",
       role: "Hacker",
-      image: "/assets/images/Pio.jpg",
+      image: "/assets/images/joan.png",
       word: "Faras, kamu harus bisa",
     },
   ];

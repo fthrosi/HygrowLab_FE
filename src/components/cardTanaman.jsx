@@ -34,6 +34,7 @@ export default function CardTanaman({ handleClick, item, onDelete }) {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [showDropdown]);
+  console.log(`${import.meta.env.VITE_BACKEND_PUBLIC_API_URL}/${item.foto}`)
   return (
     <div
       key={item.plant_name}

@@ -1,10 +1,25 @@
 import { Link, useLocation } from 'react-router-dom';
+import { getData } from '../api/profile';
+import { useState,useEffect } from 'react';
 
 export default function Sidebar({ open, toggleSidebar, tutup }) {
   const location = useLocation();
+  const [data,setData] = useState({});
   const isActive = (path) => {
     return location.pathname === path;
   };
+  const fetchData = async () => {
+      try {
+        const response = await getData();
+        const data = response.data;
+        setData(data);
+      } catch (error) {
+        console.error('Gagal menampilkan data', error);
+      }
+    };
+  useEffect(() => {
+      fetchData();
+    }, []);
   const route = [
     {
       name: 'Dashboard',
@@ -169,7 +184,9 @@ export default function Sidebar({ open, toggleSidebar, tutup }) {
               <div
                 className="bg-red-700 xl:size-7 size-[clamp(1.25rem,6.25vw,1.5rem)] 2xl:size-7 flex-shrink-0 rounded-full"
                 style={{
-                  backgroundImage: `url(/assets/images/belumadafoto.png)`,
+                  backgroundImage: data.newFoto
+                  ? `url(${import.meta.env.VITE_BACKEND_PUBLIC_API_URL}/${data.newFoto})`
+                  : `url(/assets/images/orang.png)`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                 }}></div>

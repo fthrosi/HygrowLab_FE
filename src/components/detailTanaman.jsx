@@ -86,7 +86,6 @@ export default function Tanaman() {
   useEffect(() => {
     fetchWeek();
   }, []);
-  console.log(currentWeek);
 
   return (
     <>
@@ -156,7 +155,7 @@ export default function Tanaman() {
                       id="namatanaman"
                       placeholder="Nama Tanaman"
                       disabled
-                      value={`${currentWeek?.tinggi || 0} Meter`}
+                      value={`${currentWeek?.tinggi || 0} Cm`}
                     ></input>
                   </div>
                 </div>
@@ -186,7 +185,7 @@ export default function Tanaman() {
                       id="number"
                       placeholder="Litter"
                       disabled
-                      value={`${currentWeek?.volume || 0} ml`}
+                      value={`${currentWeek?.volume || 0} L`}
                     />
                   </div>
                 </div>
