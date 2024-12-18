@@ -40,8 +40,8 @@ export default function Register() {
   };
   return (
     <>
-      <div className=" flex w-full h-[100vh]   items-center justify-center ">
-        <div className="p-6 flex justify-center items-center w-full xl:w-[33%]   z-10 ">
+      <div className=" flex w-full max-h-screen items-center justify-center ">
+        <div className="p-6 max-h-screen flex justify-center items-center w-full xl:w-[33%]   z-10 ">
           <div className="w-full h-full flex flex-col items-center xl:items-start    max-w-[450px] ">
             <div className="w-[80px] h-[12%] ">
               <img
@@ -172,7 +172,7 @@ export default function Register() {
           </div>
         </div>
 
-        <div className=" hidden xl:block  w-[67%] h-full bg-gray-100  ">
+        <div className=" max-h-screen hidden xl:block  w-[67%] h-full bg-gray-100  ">
           <div className="h-full w-full flex items-center  justify-center ">
             <div className="w-[800px] h-[800px] relative ">
               <div className="w-[250px] h-[100px] absolute top-[15%] left-[7%]">
